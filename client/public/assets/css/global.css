@@ -122,7 +122,7 @@ p{
   width: 70px;
   height: 15px;
   display: block;
-  background-image: url(../images/icons/title-icon.png);
+  /* background-image: url(../images/icons/title-icon.png); */
   transition: all 500ms ease;
   background-repeat: no-repeat;
 }
@@ -137,7 +137,7 @@ p{
   display: block;
   left: 50%;
   transform: translate(-50%);
-  background-image: url(../images/icons/title-icon.png);
+  /* background-image: url(../images/icons/title-icon.png); */
   transition: all 500ms ease;
   background-repeat: no-repeat;
 }
@@ -1016,7 +1016,7 @@ a:hover span {
   width: 220px;
   height: 41px;
   display: block;
-  background-image: url(../images/icons/title-icon.svg);
+  /* background-image: url(../images/icons/title-icon.svg); */
   top: 100%;
   transition: all 500ms ease;
   background-repeat: no-repeat;

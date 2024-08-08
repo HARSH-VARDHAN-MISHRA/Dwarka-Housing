@@ -1431,7 +1431,7 @@ header.main-header.style-one {
   width: 354px;
   height: 50px;
   display: block;
-  background-image: url(../images/shape/title-shape.svg);
+  /* background-image: url(../images/shape/title-shape.svg); */
   left: 50%;
   transform: translate(-50%);
   top: 65%;
@@ -2339,71 +2339,6 @@ header.main-header.style-one {
 .service__two__content .inner__content:hover .icon__outer .icon__bg:before {
   width: 100%;
   height: 100%;
-}
-
-/* work__section */
-
-.work__section .sec-title {
-  padding-bottom: 136px;
-}
-.work__section .inner__box .work__imgae img {
-  width: 246px;
-  height: 246px;
-  border-radius: 50%;
-  border: 15px solid var(--white-color);
-  filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.1));
-}
-.work__section .inner__box {
-  text-align: center;
-}
-.work__section .inner__box .work__imgae {
-  padding-bottom: 30px;
-  position: relative;
-}
-.work__section .inner__box .work__text h4 {
-  padding-bottom: 10px;
-}
-.work__section .inner__box .work__imgae:after {
-  content: "01";
-  position: absolute;
-  top: 0;
-  right: 50px;
-  background: var(--theme-color);
-  border: 3px solid var(--white-color);
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  width: 60px;
-  height: 60px;
-  font-weight: 700;
-  border-radius: 50%;
-  color: var(--white-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 500ms ease;
-}
-.work__section .inner__box:hover .work__content {
-  transform: translateY(40px);
-}
-.work__section .work__content {
-  position: relative;
-  transition: all 500ms ease;
-}
-.work__section .inner__box:hover .work__imgae img{
-  border: 25px solid var(--white-color);
-  filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.1));
-}
-.work__section .inner__box:hover .work__imgae:after{
-  background: var(--secondary-color);
-  right: 45px;
-}
-.work__content .row > *:nth-child(2) .inner__box .work__imgae:after{
-  content: "02";
-}
-.work__content .row > *:nth-child(3) .inner__box .work__imgae:after{
-  content: "03";
-}
-.work__content .row > *:nth-child(4) .inner__box .work__imgae:after{
-  content: "04";
 }
 
 /* testimonial__section */
@@ -5091,7 +5026,7 @@ section.page__title:before {
   width: 156px;
   height: 29px;
   display: block;
-  background-image: url(../images/icons/title-icon-two.svg);
+  /* background-image: url(../images/icons/title-icon-two.svg); */
   top: 32px;
   transition: all 500ms ease;
   background-repeat: no-repeat;
@@ -5265,7 +5200,7 @@ section.page__title:before {
   width: 156px;
   height: 29px;
   display: block;
-  background-image: url(../images/icons/title-icon-two.svg);
+  /* background-image: url(../images/icons/title-icon-two.svg); */
   top: 32px;
   transition: all 500ms ease;
   background-repeat: no-repeat;
@@ -5721,7 +5656,7 @@ section.page__title:before {
   width: 156px;
   height: 29px;
   display: block;
-  background-image: url(../images/icons/title-icon-two.svg);
+  /* background-image: url(../images/icons/title-icon-two.svg); */
   top: 32px;
   transition: all 500ms ease;
   background-repeat: no-repeat;
@@ -6184,7 +6119,7 @@ section.page__title:before {
   width: 156px;
   height: 29px;
   display: block;
-  background-image: url(../images/icons/title-icon-two.svg);
+  /* background-image: url(../images/icons/title-icon-two.svg); */
   top: 40px;
   transition: all 500ms ease;
   background-repeat: no-repeat;
