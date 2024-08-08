@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './PropertyPage.css'
+import { Link } from 'react-router-dom';
 
 const locations = [
     "New York",
@@ -118,7 +118,7 @@ const PropertyPage = () => {
                     <div className="content-box p_relative">
                         <h1 className="title">All Properties</h1>
                         <ul className="bread-crumb">
-                            <li><a href="index.html"><span className="icon-icon-16" />Home</a></li>
+                            <li><Link to={`/`}><span className="icon-icon-16" />Home</Link></li>
                             <li><span className="icon-57" />Properties</li>
                         </ul>
                     </div>
@@ -145,7 +145,7 @@ const PropertyPage = () => {
                                                     </div>
                                                     <label>Location</label>
                                                 </div>
-                                                <select className="wide" value={selectedLocation} onChange={(e) => handleChange(e, setSelectedLocation)}>
+                                                <select className="wide" value={selectedLocation} onChange={(e) => handleChange(e, setSelectedLocation)} style={{display:'none'}}>
                                                     <option value="What you are looking ?">What you are looking ?</option>
                                                     {locations.map((location, index) => (
                                                         <option key={index} value={location}>{location}</option>
@@ -171,7 +171,7 @@ const PropertyPage = () => {
                                                     </div>
                                                     <label>Property Type</label>
                                                 </div>
-                                                <select className="wide" value={selectedPropertyType} onChange={(e) => handleChange(e, setSelectedPropertyType)}>
+                                                <select className="wide" value={selectedPropertyType} onChange={(e) => handleChange(e, setSelectedPropertyType)} style={{display:'none'}}>
                                                     <option value="Property Type">Property Type</option>
                                                     {propertyTypes.map((type, index) => (
                                                         <option key={index} value={type}>{type}</option>
@@ -197,7 +197,7 @@ const PropertyPage = () => {
                                                     </div>
                                                     <label>All Cities</label>
                                                 </div>
-                                                <select className="wide" value={selectedCity} onChange={(e) => handleChange(e, setSelectedCity)}>
+                                                <select className="wide" value={selectedCity} onChange={(e) => handleChange(e, setSelectedCity)} style={{display:'none'}}>
                                                     <option value="All Cities">All Cities</option>
                                                     {cities.map((city, index) => (
                                                         <option key={index} value={city}>{city}</option>

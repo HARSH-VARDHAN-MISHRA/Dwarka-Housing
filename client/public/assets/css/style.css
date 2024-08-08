@@ -1431,7 +1431,7 @@ header.main-header.style-one {
   width: 354px;
   height: 50px;
   display: block;
-  /* background-image: url(../images/shape/title-shape.svg); */
+  background-image: url(../images/shape/title-shape.svg);
   left: 50%;
   transform: translate(-50%);
   top: 65%;
@@ -5026,7 +5026,7 @@ section.page__title:before {
   width: 156px;
   height: 29px;
   display: block;
-  /* background-image: url(../images/icons/title-icon-two.svg); */
+  background-image: url(../images/icons/title-icon-two.svg);
   top: 32px;
   transition: all 500ms ease;
   background-repeat: no-repeat;
@@ -5200,7 +5200,7 @@ section.page__title:before {
   width: 156px;
   height: 29px;
   display: block;
-  /* background-image: url(../images/icons/title-icon-two.svg); */
+  background-image: url(../images/icons/title-icon-two.svg);
   top: 32px;
   transition: all 500ms ease;
   background-repeat: no-repeat;
@@ -5656,7 +5656,7 @@ section.page__title:before {
   width: 156px;
   height: 29px;
   display: block;
-  /* background-image: url(../images/icons/title-icon-two.svg); */
+  background-image: url(../images/icons/title-icon-two.svg);
   top: 32px;
   transition: all 500ms ease;
   background-repeat: no-repeat;

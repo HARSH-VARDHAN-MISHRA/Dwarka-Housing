@@ -1016,7 +1016,7 @@ a:hover span {
   width: 220px;
   height: 41px;
   display: block;
-  /* background-image: url(../images/icons/title-icon.svg); */
+  background-image: url(../images/icons/title-icon.svg);
   top: 100%;
   transition: all 500ms ease;
   background-repeat: no-repeat;

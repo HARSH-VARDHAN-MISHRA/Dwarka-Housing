@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.png';
-import {Link , useLocation} from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 
 
@@ -50,6 +50,7 @@ const navLinks = [
 
 
 const Header = () => {
+  const [mobNav, setMobNav] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
@@ -66,63 +67,124 @@ const Header = () => {
     );
   };
 
+  const toggleSideMobileBar = () => {
+    setMobNav(!mobNav)
+  }
+
   return (
-    <header className={`main-header  ${isHomePage ? "style-one" : "style-three"}`}>
-      {/* header-lower */}
-      <div className="header-lower">
-        <div className="outer-box">
-          <div className="logo-box">
-            <figure className="logo"><Link to="/"><img src={logo} alt="logo" /></Link></figure>
-          </div>
-          <div className="menu-area">
-            {/* Mobile Navigation Toggler */}
-            <div className="mobile-nav-toggler">
-              <i className="icon-bar" />
-              <i className="icon-bar" />
-              <i className="icon-bar" />
-            </div>
-            <nav className="main-menu navbar-expand-md navbar-light">
-              <div className="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
-                <ul className="navigation clearfix">
-                  {navLinks.map((link, index) => (
-                    <li key={index} className={link.dropdown ? 'dropdown' : ''}>
-                      <a href={link.url}>{link.title}</a>
-                      {link.dropdown && renderDropdown(link.dropdown)}
-                    </li>
-                  ))}
-                </ul>
+    <>
+      <div className={` ${mobNav ? "mobile-menu-visible" : ""}`}>
+
+
+        <header className={`main-header  ${isHomePage ? "style-one" : "style-three"}`}>
+          {/* header-lower */}
+          <div className="header-lower">
+            <div className="outer-box">
+              <div className="logo-box">
+                <figure className="logo"><Link to="/"><img src={logo} alt="logo" /></Link></figure>
               </div>
-            </nav>
-          </div>
-          <div className="header__right">
-            <div className="header__right__button">
-              
-              <div className="header__submit__btn">
-                <Link to="contact" className="btn-1">
-                  Quick Contact
-                  <span />
-                </Link>
+              <div className="menu-area">
+                {/* Mobile Navigation Toggler */}
+                <div className="mobile-nav-toggler" onClick={toggleSideMobileBar}>
+                  <i className="icon-bar" />
+                  <i className="icon-bar" />
+                  <i className="icon-bar" />
+                </div>
+                <nav className="main-menu navbar-expand-md navbar-light">
+                  <div className="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                    <ul className="navigation clearfix">
+                      {navLinks.map((link, index) => (
+                        <li key={index} className={link.dropdown ? 'dropdown' : ''}>
+                          <a href={link.url}>{link.title}</a>
+                          {link.dropdown && renderDropdown(link.dropdown)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+              <div className="header__right">
+                <div className="header__right__button">
+
+                  <div className="header__submit__btn">
+                    <Link to="contact" className="btn-1">
+                      Quick Contact
+                      <span />
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      {/* sticky Header */}
-      <div className="sticky-header">
-        <div className="container">
-          <div className="outer-box">
-            <div className="logo-box">
-              <figure className="logo"><Link to="/"><img src={logo} alt="logo" /></Link></figure>
+          {/* sticky Header */}
+          <div className="sticky-header">
+            <div className="container">
+              <div className="outer-box">
+                <div className="logo-box">
+                  <figure className="logo"><Link to="/"><img src={logo} alt="logo" /></Link></figure>
+                </div>
+                <div className="menu-area">
+                  <nav className="main-menu clearfix">
+                    <div className="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                      <ul className="navigation clearfix">
+                        {navLinks.map((link, index) => (
+                          <li key={index} className={link.dropdown ? 'dropdown' : ''}>
+                            <a href={link.url}>{link.title}</a>
+                            {link.dropdown && renderDropdown(link.dropdown)}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </nav>
+                </div>
+              </div>
             </div>
-            <div className="menu-area">
-              <nav className="main-menu clearfix">
-                {/* Keep This Empty / Menu will come through Javascript */}
+          </div>
+        </header>
+
+        <div className="mobile-menu">
+          <div className="menu-backdrop" />
+          <div className="close-btn" onClick={toggleSideMobileBar}><i className="fas fa-times" /></div>
+          <nav className="menu-box mCustomScrollbar _mCS_1 mCS_no_scrollbar">
+            <div className="nav-logo">
+              <Link to={`/`}><img src={logo} alt="logo" title="Hans Builders" /></Link>
+            </div>
+            <div className="menu-outer">
+              <nav className="main-menu navbar-expand-md navbar-light">
+                <div className="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                  <ul className="navigation clearfix">
+                    {navLinks.map((link, index) => (
+                      <li key={index} className={link.dropdown ? 'dropdown' : ''}>
+                        <a href={link.url}>{link.title}</a>
+                        {link.dropdown && renderDropdown(link.dropdown)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </nav>
             </div>
-          </div>
+            <div className="contact-info">
+              <h4>Contact Info</h4>
+              <ul>
+                <li>Chicago 12, Melborne City, USA</li>
+                <li><a href="tel:+8801682648101">+88 01682648101</a></li>
+                <li><a href="mailto:info@example.com">info@example.com</a></li>
+              </ul>
+            </div>
+            <div className="social-links">
+              <ul className="clearfix">
+                <li><a href="index.html"><span className="fab fa-twitter" /></a></li>
+                <li><a href="index.html"><span className="fab fa-facebook-square" /></a></li>
+                <li><a href="index.html"><span className="fab fa-pinterest-p" /></a></li>
+                <li><a href="index.html"><span className="fab fa-instagram" /></a></li>
+                <li><a href="index.html"><span className="fab fa-youtube" /></a></li>
+              </ul>
+            </div>
+          </nav>
         </div>
+
       </div>
-    </header>
+    </>
   );
 };
 
