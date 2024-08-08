@@ -4744,7 +4744,7 @@ header.main-header.style-one {
 /* page__title */
 
 .page__title {
-  padding: 160px 0px;
+  padding: 50px 0px;
   margin: 0px 100px;
   overflow: hidden;
 }
@@ -5680,6 +5680,7 @@ section.page__title:before {
 }
 .advance__search__last {
   display: flex;
+  flex-wrap: wrap;
 }
 .advance__search__last .form-group {
   margin-right: 30px;

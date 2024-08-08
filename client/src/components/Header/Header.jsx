@@ -1,6 +1,11 @@
 import React from 'react';
 import logo from './logo.png';
-import {Link} from 'react-router-dom'
+import {Link , useLocation} from 'react-router-dom'
+
+
+
+
+
 const navLinks = [
   { title: 'Home', url: '/' },
   { title: 'About Us', url: 'about' },
@@ -42,7 +47,12 @@ const navLinks = [
   { title: 'Contact Us', url: 'contact' },
 ];
 
+
+
 const Header = () => {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   const renderDropdown = (dropdown) => {
     return (
       <ul>
@@ -57,7 +67,7 @@ const Header = () => {
   };
 
   return (
-    <header className="main-header style-one">
+    <header className={`main-header  ${isHomePage ? "style-one" : "style-three"}`}>
       {/* header-lower */}
       <div className="header-lower">
         <div className="outer-box">
