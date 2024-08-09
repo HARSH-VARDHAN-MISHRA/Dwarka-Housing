@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from './logo.png';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 
 
@@ -9,15 +9,14 @@ import { Link, useLocation } from 'react-router-dom'
 const navLinks = [
   { title: 'Home', url: '/' },
   { title: 'About Us', url: 'about' },
-  // {
-  //   title: 'Property',
-  //   url: '#',
-  //   dropdown: [
-  //     { title: 'Property', url: 'properties' },
-  //     { title: 'Property Grid', url: 'property-grid' },
-  //     { title: 'Property Details', url: 'property-details' },
-  //   ],
-  // },
+  {
+    title: 'Property',
+    url: '#',
+    dropdown: [
+      { title: 'Buy', url: 'properties' },
+      { title: 'Rent ', url: 'properties' },
+    ],
+  },
   // {
   //   title: 'Pages',
   //   url: '#',
@@ -42,7 +41,7 @@ const navLinks = [
   //     { title: 'FAQ', url: 'faq' },
   //   ],
   // },
-  { title: 'Property', url: 'properties' },
+  // { title: 'Property', url: 'properties' },
   { title: 'Blog', url: 'blog' },
   { title: 'Contact Us', url: 'contact' },
 ];
@@ -95,7 +94,7 @@ const Header = () => {
                     <ul className="navigation clearfix">
                       {navLinks.map((link, index) => (
                         <li key={index} className={link.dropdown ? 'dropdown' : ''}>
-                          <a href={link.url}>{link.title}</a>
+                          <Link to={link.url}>{link.title}</Link>
                           {link.dropdown && renderDropdown(link.dropdown)}
                         </li>
                       ))}
@@ -129,7 +128,7 @@ const Header = () => {
                       <ul className="navigation clearfix">
                         {navLinks.map((link, index) => (
                           <li key={index} className={link.dropdown ? 'dropdown' : ''}>
-                            <a href={link.url}>{link.title}</a>
+                            <Link to={link.url}>{link.title}</Link>
                             {link.dropdown && renderDropdown(link.dropdown)}
                           </li>
                         ))}
@@ -155,7 +154,7 @@ const Header = () => {
                   <ul className="navigation clearfix">
                     {navLinks.map((link, index) => (
                       <li key={index} className={link.dropdown ? 'dropdown' : ''}>
-                        <a href={link.url}>{link.title}</a>
+                        <Link to={link.url}>{link.title}</Link>
                         {link.dropdown && renderDropdown(link.dropdown)}
                       </li>
                     ))}

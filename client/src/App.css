@@ -208,6 +208,13 @@
 
 
 /* ================================================================================================= */
+.inner-box .image-box .image img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+
 .advance__search__content{
     flex-basis: 80%;
 }

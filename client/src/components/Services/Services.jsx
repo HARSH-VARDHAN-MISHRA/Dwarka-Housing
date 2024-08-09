@@ -28,7 +28,7 @@ const Services = () => {
                                     </div>
                                     <div className="service__text">
                                         <h4><a href="services-details.html">Buy a home</a> </h4>
-                                        <p>Sed ut perspiciatis unde omnis iste natus <br /> error sit voluptatem accusantium.</p>
+                                        <p>Find your perfect home with ease. Quality properties, and expert guidance from start to finish.</p>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@ const Services = () => {
                                     </div>
                                     <div className="service__text">
                                         <h4><a href="services-details.html">Find a home</a></h4>
-                                        <p>Sed ut perspiciatis unde omnis iste natus <br /> error sit voluptatem accusantium.</p>
+                                        <p>Discover your ideal home effortlessly. Quality options, expert guidance, and a seamless experience await.</p>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@ const Services = () => {
                                     </div>
                                     <div className="service__text">
                                         <h4><a href="services-details.html">Rent a home</a></h4>
-                                        <p>Sed ut perspiciatis unde omnis iste natus <br /> error sit voluptatem accusantium.</p>
+                                        <p>Find the perfect rental with ease. Quality homes, flexible options, and expert support.</p>
                                     </div>
                                 </div>
                             </div>

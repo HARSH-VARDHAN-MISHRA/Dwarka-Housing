@@ -18,49 +18,15 @@ const About = () => {
                                     <h2>Hans Builder <span> Properties </span> </h2>
                                 </div>
                                 <div className="normal__text">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque  laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi  architecto beatae vitae dicta sunt explicabo.</p>
+                                    <p>Hans Builders is committed to turning dreams into reality by offering quality properties tailored to your lifestyle. With a strong legacy in real estate, we focus on delivering trust, innovation, and excellence. Whether it's a cozy home or a prime commercial space, we help you find the perfect property. Our expert team ensures a seamless journey from start to finish.</p>
                                 </div>
                                 <div className="sell__list">
                                     <ul>
-                                        <li> <span className="icon-58" /> Nemo enim ipsam voluptatem quia voluptas </li>
-                                        <li> <span className="icon-58" /> Live Music Cocets at Luviana </li>
-                                        <li> <span className="icon-58" /> Taudantium, totam rem aperiam </li>
-                                        <li> <span className="icon-58" /> Our SecretIsland Boat Tour is Just for You </li>
+                                        <li> <span className="icon-58" /> Expert advice and guidance throughout </li>
+                                        <li> <span className="icon-58" /> Creative and modern property designs </li>
+                                        <li> <span className="icon-58" /> Strategically located prime properties </li>
+                                        <li> <span className="icon-58" /> Top-quality construction standards </li>
                                     </ul>
-                                </div>
-                                <div className="home__pack">
-                                    <div className="service__list">
-                                        <div className="icon">
-                                            <span className="icon-icon-05" />
-                                        </div>
-                                        <div className="text">
-                                            <span>3 Bedrooms</span>
-                                        </div>
-                                    </div>
-                                    <div className="service__list">
-                                        <div className="icon">
-                                            <span className="icon-icon-04" />
-                                        </div>
-                                        <div className="text">
-                                            <span>3 Bathrooms</span>
-                                        </div>
-                                    </div>
-                                    <div className="service__list">
-                                        <div className="icon">
-                                            <span className="icon-icon-34" />
-                                        </div>
-                                        <div className="text">
-                                            <span>1 Car parking</span>
-                                        </div>
-                                    </div>
-                                    <div className="service__list">
-                                        <div className="icon">
-                                            <span className="icon-icon-42" />
-                                        </div>
-                                        <div className="text">
-                                            <span>Square Ft</span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -68,20 +34,8 @@ const About = () => {
                             <div className="about_right_section pl-xl-10">
                                 <div className="inner__image">
                                     <figure className="image">
-                                        <img src="assets/images/resource/sell-01.png" alt />
+                                        <img src="https://img.freepik.com/free-photo/construction-works-frankfurt-downtown-germany_1268-20907.jpg?t=st=1723184974~exp=1723188574~hmac=d7912a0e16d2766f3f5afc1f2da8bf124ade310ad209c0883cc8f5e25c5739ef&w=1060" alt="building Image" />
                                     </figure>
-                                </div>
-                                <div className="image__section__two">
-                                    <div className="inner__image">
-                                        <figure className="image">
-                                            <img src="assets/images/resource/sell-02.png" alt />
-                                        </figure>
-                                    </div>
-                                    <div className="inner__image">
-                                        <figure className="image">
-                                            <img src="assets/images/resource/sell-03.png" alt />
-                                        </figure>
-                                    </div>
                                 </div>
                             </div>
                         </div>

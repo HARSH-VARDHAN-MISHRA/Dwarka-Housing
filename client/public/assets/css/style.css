@@ -2087,7 +2087,7 @@ header.main-header.style-one {
 }
 .propertiest__section .lower-content .author-info {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 .propertiest__section .lower-content .author-info .author {
@@ -2154,7 +2154,7 @@ header.main-header.style-one {
   position: relative;
   display: block;
   overflow: hidden;
-  /* border-radius: 20px 20px 0px 0px; */
+  border-radius: 20px 20px 0px 0px;
 }
 .propertiest__section .inner-box:hover img {
   opacity: 0.9;
@@ -3430,7 +3430,7 @@ header.main-header.style-one {
   background: var(--theme-color);
 }
 .service__two__content .inner__content .service__text p {
-  padding: 13px 0px 82px;
+  padding: 12px 12px 49px;
 }
 
 .service__two__content .inner__content:before {
