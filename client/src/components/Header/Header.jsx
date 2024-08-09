@@ -11,7 +11,7 @@ const navLinks = [
   { title: 'About Us', url: 'about' },
   {
     title: 'Property',
-    url: '#',
+    url: 'properties',
     dropdown: [
       { title: 'Buy', url: 'properties' },
       { title: 'Rent ', url: 'properties' },
@@ -165,18 +165,17 @@ const Header = () => {
             <div className="contact-info">
               <h4>Contact Info</h4>
               <ul>
-                <li>Chicago 12, Melborne City, USA</li>
-                <li><a href="tel:+8801682648101">+88 01682648101</a></li>
+                <li>Plot.198, Sec 24, Pocket-9, Rohini, New Delhi, Delhi 110085</li>
+                <li><a href="tel:+91987654321">+91-987654321</a></li>
                 <li><a href="mailto:info@example.com">info@example.com</a></li>
               </ul>
             </div>
             <div className="social-links">
               <ul className="clearfix">
-                <li><a href="index.html"><span className="fab fa-twitter" /></a></li>
-                <li><a href="index.html"><span className="fab fa-facebook-square" /></a></li>
-                <li><a href="index.html"><span className="fab fa-pinterest-p" /></a></li>
-                <li><a href="index.html"><span className="fab fa-instagram" /></a></li>
-                <li><a href="index.html"><span className="fab fa-youtube" /></a></li>
+                <li><a href="#"><span className="fab fa-twitter" /></a></li>
+                <li><a href="#"><span className="fab fa-facebook-square" /></a></li>
+                <li><a href="#"><span className="fab fa-instagram" /></a></li>
+                <li><a href="#"><span className="fab fa-youtube" /></a></li>
               </ul>
             </div>
           </nav>
