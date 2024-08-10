@@ -15,6 +15,8 @@ const navLinks = [
     dropdown: [
       { title: 'Buy', url: 'properties' },
       { title: 'Rent ', url: 'properties' },
+      { title: 'Commercial', url: 'properties' },
+      { title: 'PG', url: 'properties' },
     ],
   },
   // {
@@ -179,6 +181,8 @@ const Header = () => {
               </ul>
             </div>
           </nav>
+
+          
         </div>
 
       </div>

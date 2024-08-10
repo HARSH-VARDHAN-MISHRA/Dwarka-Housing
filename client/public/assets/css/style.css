@@ -1279,7 +1279,7 @@ header.main-header.style-one {
 .banner__tab__section li.tab-btn {
   background: var(--primary-color);
   border-radius: 5px 5px 0px 0px;
-  width: 76px;
+  /* width: 76px; */
   height: 43px;
   display: inline-block;
   padding: 7px 25px;

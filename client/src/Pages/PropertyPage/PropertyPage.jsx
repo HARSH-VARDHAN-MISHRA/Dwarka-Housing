@@ -190,6 +190,18 @@ const propertiesData = [
     },
 ];
 
+const properties = [
+    {
+        id: 1,
+        name: "KBC Kushwaha Homes",
+        bhk: "2, 3, 4 BHK Apartments",
+        address: "Sector 15 Dwarka, South West Delhi, New Delhi",
+        image: "https://housing-images.n7net.in/4f2250e8/41e2c6a70d5229ac5ab60b13ae733d60/v0/medium/goyal_floors_1-sector_15_dwarka-delhi-goyal_builders.jpeg",
+        link: "/property/detail",
+        tag: "Rent"
+    },
+
+];
 
 const PropertyPage = () => {
     const [visibleCount, setVisibleCount] = useState(6);
@@ -213,12 +225,12 @@ const PropertyPage = () => {
 
     const displayedProperties = propertiesData.slice(0, visibleCount);
 
-    useEffect(()=>{
+    useEffect(() => {
         window.scrollTo({
-            top:0,
-            behavior:'smooth'
+            top: 0,
+            behavior: 'smooth'
         })
-    },[])
+    }, [])
 
 
     return (
@@ -378,7 +390,7 @@ const PropertyPage = () => {
                     <div className="propertiest__grid__contect pt-40">
                         <div className="row">
 
-                            <div className="col-xl-12 col-lg-12">
+                            {/* <div className="col-xl-12 col-lg-12">
                                 <div className="propertiest__contents">
                                     <div className="row">
                                         {displayedProperties.map((property) => (
@@ -439,8 +451,25 @@ const PropertyPage = () => {
                                         </div>
                                     )}
                                 </div>
-                            </div>
+                            </div> */}
 
+
+                            <div className="row">
+                                {properties.map((property) => (
+                                    <div key={property.id} className="property-single-col col-md-3 col-6">
+                                        <Link to={property.link} className="img">
+                                            <div className="absolute">{property.tag}</div>
+                                            <img src={property.image} alt={property.name} />
+                                        </Link>
+                                        <Link to={property.link} className="pro-detail">
+                                            <p className='pro-name'>{property.name}</p>
+                                            <small className='bhk'>{property.bhk}</small>
+                                            <address>{property.address}</address>
+                                        </Link>
+                                        <div className="contact-btn">Contact</div>
+                                    </div>
+                                ))}
+                            </div>
 
                         </div>
                     </div>

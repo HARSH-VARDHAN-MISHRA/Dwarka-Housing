@@ -141,15 +141,14 @@ const newsItems = [
 
 
 const Home = () => {
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-  }, [])
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'smooth'
+  //   })
+  // }, [])
   return (
     <>
-
 
       <section className="banner__one p_relative">
         <div className="image-layer-01" style={{ backgroundImage: 'url(assets/images/shape/shape-01.png)' }} />
@@ -177,6 +176,12 @@ const Home = () => {
                     </li>
                     <li className="tab-btn active-btn" data-tab="#tab-2">
                       <span className="tab___all"> Buy </span>
+                    </li>
+                    <li className="tab-btn active-btn" data-tab="#tab-2">
+                      <span className="tab___all"> Commercial </span>
+                    </li>
+                    <li className="tab-btn active-btn" data-tab="#tab-2">
+                      <span className="tab___all"> PG </span>
                     </li>
                   </ul>
                 </div>
@@ -270,6 +275,7 @@ const Home = () => {
                     <div className="inner-box">
                       <div className="property__form">
                         <form action="index.html" method="post" className="reserve-form">
+                       
                           <div className=" form-group">
                             <div className="top__title">
                               <div className="icon">
@@ -303,6 +309,24 @@ const Home = () => {
                                 <li data-value="Nagpur" className="option">Nagpur</li>
                                 <li data-value="Indore" className="option">Indore</li>
 
+                              </ul>
+                            </div>
+                          </div>
+                          <div className=" form-group">
+                            <div className="top__title">
+                              <div className="icon">
+                                <span className="icon-icon-33" />
+                              </div>
+                              <label>Location</label>
+                            </div>
+                       
+                            <div className="nice-select wide" tabIndex={0}>
+                              <span className="current">Dwarka</span>
+                              <ul className="list">
+                                <li data-value="Dwarka" data-display="Dwarka" className="option selected">Dwarka</li>
+                                <li data-value="Saket" className="option">Saket</li>
+                                <li data-value="Rohini" className="option">Rohini</li>
+                                <li data-value="Vasant Kunj" className="option">Vasant Kunj</li>
                               </ul>
                             </div>
                           </div>
@@ -398,11 +422,8 @@ const Home = () => {
         </div>
       </section>
 
-      <About />
-      <Services />
-
       {/* <!-- propertiest-two --> */}
-      <section className="propertiest__section two p_relative">
+      {/* <section className="propertiest__section two p_relative">
         <div className="propertiest__contents see__pad">
           <div className="anim-icon">
             <div className="icon icon-01 float-bob-y" style={{ backgroundImage: 'url(assets/images/icons/icon-18.svg)' }} />
@@ -473,7 +494,75 @@ const Home = () => {
 
           </div>
         </div>
+      </section> */}
+
+
+      <section className="property-list see__pad my-5 ">
+        <div className="container">
+
+          <div className="sec-title mb-5 text-center">
+            <div className="sub__title">
+              <span>Our Properties</span>
+            </div>
+            <h2>Our <span> Property </span> </h2>
+          </div>
+
+          <div className="row">
+
+            <div className="property-single-col col-md-3 col-6">
+              <Link to={`/property/detail`} className="img">
+                <div className="absolute">Rent</div>
+                <img src="https://housing-images.n7net.in/4f2250e8/41e2c6a70d5229ac5ab60b13ae733d60/v0/medium/goyal_floors_1-sector_15_dwarka-delhi-goyal_builders.jpeg" alt="" />
+              </Link>
+              <Link to={`/property/detail`} className="pro-detail">
+                <p className='pro-name'>KBC Kushwaha Homes</p>
+                <small className='bhk'>2, 3, 4 BHK Apartments</small>
+                <address>Sector 15 Dwarka, South West Delhi, New Delhi</address>
+              </Link>
+              <div className="contact-btn">Contact</div>
+            </div>
+            <div className="property-single-col col-md-3 col-6">
+              <Link to={`/property/detail`} className="img">
+                <img src="https://housing-images.n7net.in/4f2250e8/41e2c6a70d5229ac5ab60b13ae733d60/v0/medium/goyal_floors_1-sector_15_dwarka-delhi-goyal_builders.jpeg" alt="" />
+              </Link>
+              <Link to={`/property/detail`} className="pro-detail">
+                <p className='pro-name'>KBC Kushwaha Homes</p>
+                <small className='bhk'>2, 3, 4 BHK Apartments</small>
+                <address>Sector 15 Dwarka, South West Delhi, New Delhi</address>
+              </Link>
+              <div className="contact-btn">Contact</div>
+            </div>
+            <div className="property-single-col col-md-3 col-6">
+              <Link to={``} className="img">
+                <img src="https://housing-images.n7net.in/4f2250e8/41e2c6a70d5229ac5ab60b13ae733d60/v0/medium/goyal_floors_1-sector_15_dwarka-delhi-goyal_builders.jpeg" alt="" />
+              </Link>
+              <Link to={``} className="pro-detail">
+                <p className='pro-name'>KBC Kushwaha Homes</p>
+                <small className='bhk'>2, 3, 4 BHK Apartments</small>
+                <address>Sector 15 Dwarka, South West Delhi, New Delhi</address>
+              </Link>
+              <div className="contact-btn">Contact</div>
+            </div>
+            <div className="property-single-col col-md-3 col-6">
+              <Link to={``} className="img">
+                <img src="https://housing-images.n7net.in/4f2250e8/41e2c6a70d5229ac5ab60b13ae733d60/v0/medium/goyal_floors_1-sector_15_dwarka-delhi-goyal_builders.jpeg" alt="" />
+              </Link>
+              <Link to={``} className="pro-detail">
+                <p className='pro-name'>KBC Kushwaha Homes</p>
+                <small className='bhk'>2, 3, 4 BHK Apartments</small>
+                <address>Sector 15 Dwarka, South West Delhi, New Delhi</address>
+              </Link>
+              <div className="contact-btn">Contact</div>
+            </div>
+
+
+          </div>
+        </div>
       </section>
+
+      {/* <About /> */}
+      <Services />
+
 
       {/* <Counter/> */}
       <Testimonial />
