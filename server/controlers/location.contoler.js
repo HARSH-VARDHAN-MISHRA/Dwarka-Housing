@@ -4,31 +4,40 @@ const Location = require('../models/location.model');
 exports.createLocation = async (req, res) => {
     try {
         console.log(req.body);
-        const { state, locality, latitude, longitude } = req.body;
+        const { state, locality } = req.body;
 
         if (!state || !locality) {
             return res.status(403).json({
                 success: false,
                 message: "Please Provide All Fields !!"
-            })
+            });
         }
-        const existingState = await categoryDetail.findOne({ state: state });
-        if (existingCategory) {
-            return res.status(403).json({
-                success: false,
-                message: "State Already Exists !!"
+
+        const existingState = await Location.findOne({ state: state });
+
+        if (existingState) {
+            // Add new localities to the existing state's locality array
+            existingState.locality = [...new Set([...existingState.locality, ...locality])];
+
+            await existingState.save();
+            return res.status(200).json({
+                success: true,
+                data: existingState,
+                message: "Location Updated Successfully !!"
             });
         }
 
         const newLocation = new Location({
-            state, locality, latitude, longitude
-        })
+            state, locality
+        });
+
         await newLocation.save();
+
         res.status(200).json({
             success: true,
             data: newLocation,
             message: "Location Created Successfully !!"
-        })
+        });
     } catch (error) {
         console.log("Error : ", error);
         return res.status(500).json({
@@ -68,15 +77,21 @@ exports.getLocations = async (req, res) => {
     try {
         const { state, locality } = req.query;
         const filter = {};
+
         if (state) filter.state = state;
-        if (locality) filter.locality = locality;
+        if (locality) filter.locality = { $in: [locality] };
 
         const locations = await Location.find(filter);
-        res.status(200).json(locations);
+        res.status(200).json({
+            success: true,
+            data: locations,
+            message: "Locations Found"
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 // Update location details
 exports.updateLocation = async (req, res) => {

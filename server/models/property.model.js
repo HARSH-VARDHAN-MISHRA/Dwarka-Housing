@@ -57,9 +57,6 @@ const propertySchema = new mongoose.Schema({
   images: [{
     type: String
   }],
-  amenities: [{
-    type: String
-  }]
 } , { timestamps: true });
 
 const Property = mongoose.model('Property', propertySchema);

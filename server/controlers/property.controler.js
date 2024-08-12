@@ -5,7 +5,7 @@ const Location = require('../models/location.model');
 exports.createProperty = async (req, res) => {
     try {
         console.log("Property Req Body : ", req.body)
-        const { title, description, type, category, price, areaSize, bedrooms, bathrooms, yearBuilt, location, mapLink, vendor, amenities, status } = req.body;
+        const { title, description, type, category, price, areaSize, bedrooms, bathrooms, yearBuilt, location, mapLink, vendor, status } = req.body;
         if (!title || !description || !type || !category || !price || !areaSize || !location || !vendor) {
             return res.status(403).json({
                 success: false,
@@ -170,9 +170,9 @@ exports.getProperties = async (req, res) => {
 // Approve/Reject a property listing (Admin only)
 exports.updatePropertyStatus = async (req, res) => {
     try {
-        if (req.user.role !== 'Admin') {
-            return res.status(403).json({ message: 'Not authorized' });
-        }
+        // if (req.user.role !== 'Admin') {
+        //     return res.status(403).json({ message: 'Not authorized' });
+        // }
 
         const property = await Property.findById(req.params.id);
         if (!property) {

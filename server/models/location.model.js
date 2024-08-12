@@ -6,14 +6,8 @@ const locationSchema = new mongoose.Schema({
     required: true
   },
   locality: {
-    type: String,
+    type: [String],
     required: true
-  },
-  latitude: {
-    type: Number
-  },
-  longitude: {
-    type: Number
   },
   properties: [{
     type: mongoose.Schema.Types.ObjectId,
