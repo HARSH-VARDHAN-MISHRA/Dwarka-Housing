@@ -8,6 +8,11 @@ const Header = () => {
   const handletoggleBtn =()=>{
     setSideToggle(!sidetoggle)
   }
+  const handleLogOut =()=>{
+    sessionStorage.removeItem("hansBuilderToken");
+    sessionStorage.removeItem("hansBuilderUser");
+    window.location.href="/";
+  }
   return (
     <>
       <header>
@@ -24,7 +29,7 @@ const Header = () => {
               Go To Website
             </a>
 
-            <div className="logout">
+            <div className="logout" onClick={handleLogOut}>
               Log Out <i class="fa-solid fa-right-from-bracket"></i>
             </div>
           </div>
@@ -37,7 +42,7 @@ const Header = () => {
             <li><Link to="/all-locations" onClick={handletoggleBtn}> <i class="fa-solid fa-location-dot"></i> All Locations</Link></li>
             <li><Link to="/all-properties" onClick={handletoggleBtn}> <i class="fa-solid fa-building"></i> All Properties</Link></li>
             <li><Link to="/all-users" onClick={handletoggleBtn}> <i class="fa-solid fa-user"></i> All Users</Link></li>
-            <button className='logout'>Log Out <i class="fa-solid fa-right-from-bracket"></i></button>
+            <button className='logout' onClick={handleLogOut}>Log Out <i class="fa-solid fa-right-from-bracket"></i></button>
           </ul>
         </div>
       </header>

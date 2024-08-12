@@ -4,6 +4,8 @@ const router = express.Router();
 // Controllers
 const {createProperty , getPropertyById, updateProperty, deleteProperty, getProperties, updatePropertyStatus, getAllProperty } = require('../controlers/property.controler');
 // const userController = require('../controlers/user.controler');
+const { register, PasswordChangeRequest, ResendOtp, ResendSignOtp, verifyOtpForSignIn, VerifyOtp, LoginUser, getAllUsers, LoginAdmin } = require('../controlers/user.controler');
+
 const locationController = require('../controlers/location.contoler');
 const upload = require('../middlewares/upload'); // The Cloudinary multer setup
 
@@ -20,7 +22,7 @@ router.get('/get-all-properties', getAllProperty);
 router.put('/update-property/:id',  upload.array('images', 10), updateProperty);
 router.delete('/delete-property/:id',  deleteProperty);
 router.get('/get-properties-by-query', getProperties);
-router.patch('/properties/:id/status',  updatePropertyStatus);
+router.patch('/properties/:id/status',authorizeRoles('Admin'),  updatePropertyStatus);
 
 // User Routes
 // router.post('/register', userController.registerUser);
@@ -38,16 +40,17 @@ router.put('/update-location/:id', locationController.updateLocation);
 router.delete('/delete-location/:id', locationController.deleteLocation);
 
 // // -- Authentication ---- 
-// router.post("/register", userController.register) // create Account
+router.post("/register", register) // create Account
 
-// router.post('/Password-change-request', userController.PasswordChangeRequest);
-// router.post('/Resend-Otp', userController.ResendOtp);
-// router.post('/Verify-sign-Otp', userController.verifyOtpForSignIn);
-// router.post('/resend-sign-Otp', userController.ResendSignOtp);
-// router.post('/Verify-Otp/:email', userController.VerifyOtp)
+router.post('/Password-change-request', PasswordChangeRequest);
+router.post('/Resend-Otp', ResendOtp);
+router.post('/Verify-sign-Otp', verifyOtpForSignIn);
+router.post('/resend-sign-Otp', ResendSignOtp);
+router.post('/Verify-Otp/:email', VerifyOtp)
 
-// router.post("/login", userController.LoginUser);
-// router.post("/admin-login", userController.LoginAdmin);
-// router.get("/all-users", userController.getAllUsers);
+router.post("/login", LoginUser);
+router.post("/admin-login", LoginAdmin);
+router.get("/all-users", getAllUsers);
+
 
 module.exports = router;

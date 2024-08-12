@@ -772,7 +772,7 @@ try {
             msg: "User not Avilable"
         })
     }
-    if (!existUser.Role === 'admin') {
+    if (!existUser.role === 'Vendor') {
         return res.status(401).json({
             success: false,
             msg: "You have not Authorise to Access It."

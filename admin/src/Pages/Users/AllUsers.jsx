@@ -7,7 +7,7 @@ const AllUsers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const res = await axios.get('https://api.swhealthcares.com/api/v1/all-users');
+                const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/all-users`);
                 setUsers(res.data.users);
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -50,7 +50,7 @@ const AllUsers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.phoneNumber}</td>
-                                <td>{user.Role}</td>
+                                <td>{user.role}</td>
                                 <td>{user.isActive ? 'Yes' : 'No'}</td>
                                 <td>{new Date(user.createdAt).toLocaleString()}</td>
                                 {/* Render more columns if needed */}
