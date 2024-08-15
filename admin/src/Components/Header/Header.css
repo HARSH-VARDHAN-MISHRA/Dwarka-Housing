@@ -10,6 +10,7 @@
     top: 0;
     width: 100%;
     border-bottom: 1px solid white;
+    z-index: 50;
 }
 .top-head>div{
     display: flex;
@@ -48,7 +49,7 @@
     top: 4rem;
     left: 0;
     background: var(--color-main-light);
-    /* background: #9ae5f8; */
+    z-index: 50;
     height: 100%;
     overflow-y: auto;
     width: 250px;

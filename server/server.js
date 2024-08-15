@@ -7,10 +7,8 @@ const allRoutes = require('./routes/allRoutes');
 const authMiddleware = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
 
-const cloudinary = require('./configure/cloudinary');
+// const cloudinary = require('./configure/cloudinary');
 
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' }); // or use cloudinary storage
 
 dotenv.config()
 connectDb()
@@ -22,6 +20,7 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.set(express.static("uploads"))
 app.use("/api/v1",allRoutes);
 
 

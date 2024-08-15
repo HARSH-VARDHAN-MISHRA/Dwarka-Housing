@@ -94,27 +94,36 @@ ol, ul {
 }
 
 
-/* -------- d-table ----  */
-.d-table{
+/* -------- dis-table ----  */
+.dis-table{
   width: 100%;
   margin: 1rem 0rem;
   overflow-x: auto;
   font-size: 0.88rem;
 }
-.d-table i{
+.dis-table i{
   font-size: 0.78rem;
 }
-.d-table th{
+.dis-table th,
+.dis-table td{
+  text-wrap: nowrap;
+}
+.dis-table th{
   font-weight: 500;
   min-width: max-content;
 }
-.d-table img{
+.dis-table img{
   height: 50px;
   width: 50px;
   object-fit: cover;
 }
-
-.d-table .bt{
+.dis-table td select{
+  padding: 0.2rem;
+  padding-right: 0.6rem;
+  width: max-content;
+  font-size: 0.9rem;
+}
+.dis-table .bt{
   padding: 2px 5px;
   border-radius: 5px;
   color: white;
@@ -122,15 +131,19 @@ ol, ul {
   transition: var(--transition-3);
   border: none;
   outline: none;
+  text-wrap: nowrap;
 }
-.d-table .bt:hover{
+.dis-table .bt:hover{
   opacity: 0.5;
 }
-.d-table .bt.edit{
+.dis-table .bt.edit{
   background: var(--color-green);
 }
-.d-table .bt.delete{
+.dis-table .bt.delete{
   background: red;
+}
+.dis-table .bt.view{
+  background: var(--color-main-light);
 }
 
 
@@ -177,3 +190,50 @@ button[type="submit"]{
   font-size: 1.1rem;
 }
 
+
+
+/* =======================  */
+
+.property-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header.bg-gradient-primary {
+  background: linear-gradient(45deg, var(--color-main), #1cc88a);
+  border-bottom: none;
+}
+
+.card-body .description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+}
+
+.card-body {
+  padding: 15px;
+  color: #6c757d;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+  border-top: none;
+  padding: 10px;
+}
+
+.property-card .card-text {
+  margin-bottom: 10px;
+}
+
+.property-card .form-select {
+  border-radius: 20px;
+  padding: 5px 10px;
+}

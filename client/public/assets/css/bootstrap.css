@@ -6344,15 +6344,15 @@ textarea.form-control-lg {
   display: grid !important;
 }
 
-.d-table {
+.dis-table {
   display: table !important;
 }
 
-.d-table-row {
+.dis-table-row {
   display: table-row !important;
 }
 
-.d-table-cell {
+.dis-table-cell {
   display: table-cell !important;
 }
 
@@ -8200,15 +8200,15 @@ textarea.form-control-lg {
     display: grid !important;
   }
 
-  .d-md-table {
+  .d-mdis-table {
     display: table !important;
   }
 
-  .d-md-table-row {
+  .d-mdis-table-row {
     display: table-row !important;
   }
 
-  .d-md-table-cell {
+  .d-mdis-table-cell {
     display: table-cell !important;
   }
 

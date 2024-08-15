@@ -3,55 +3,30 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap'; // Import Bootstrap components
 
 const AllProperty = () => {
     const [properties, setProperties] = useState([]);
     const [filteredProperties, setFilteredProperties] = useState([]);
-    const [locations, setLocations] = useState([]);
-    const [currentProperty, setCurrentProperty] = useState({
-        title: '',
-        description: '',
-        type: 'Rent',
-        category: 'Floor',
-        price: 0,
-        areaSize: '',
-        bedrooms: 0,
-        bathrooms: 0,
-        yearBuilt: 0,
-        location: '',
-        mapLink: '',
-        vendor: '',
-        status: 'Pending',
-        images: []
-    });
-    const [modalType, setModalType] = useState('add'); // 'add' or 'edit'
-    const [showModal, setShowModal] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [currentState, setCurrentState] = useState('');
-    const [currentLocality, setCurrentLocality] = useState('');
-
-    // --- Pagination ---
     const [currentPage, setCurrentPage] = useState(1);
+    const [showModal, setShowModal] = useState(false); // Modal visibility state
+    const [selectedVendor, setSelectedVendor] = useState(null); // Selected vendor details
+    const [showViewModal, setShowViewModal] = useState(false); // View property modal visibility
+    const [selectedProperty, setSelectedProperty] = useState(null); // Selected property details
     const itemPerPage = 8;
+
+    const navigate = useNavigate();
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-property`);
-            const main = res.data.data.reverse(); // Reversing the data
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-properties`);
+            const main = res.data.data.reverse();
             setProperties(main);
-            setFilteredProperties(main); // Set initial filtered properties
+            setFilteredProperties(main);
         } catch (error) {
             console.error('There was an error fetching the Properties!', error);
-        }
-    };
-
-    const handleFetchLocations = async () => {
-        try {
-            const res = await axios.get('http://localhost:5500/api/v1/get-all-location');
-            setLocations(res.data.data);
-        } catch (error) {
-            console.error('There was an error fetching the Locations!', error);
         }
     };
 
@@ -65,7 +40,6 @@ const AllProperty = () => {
 
     useEffect(() => {
         handleFetch();
-        handleFetchLocations();
     }, []);
 
     useEffect(() => {
@@ -73,7 +47,6 @@ const AllProperty = () => {
             property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             property.description.toLowerCase().includes(searchQuery.toLowerCase())
         );
-
         setFilteredProperties(tempProperties);
     }, [searchQuery, properties]);
 
@@ -89,7 +62,7 @@ const AllProperty = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete-property/${id}`);
+                    await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete-property/${id}`);
                     toast.success("Property Deleted Successfully");
                     handleFetch();
 
@@ -106,54 +79,25 @@ const AllProperty = () => {
         });
     };
 
-    const handleAddOrUpdate = async () => {
-        const url = modalType === 'add'
-            ? `${process.env.REACT_APP_BACKEND_URL}/create-property`
-            : `${process.env.REACT_APP_BACKEND_URL}/update-property/${currentProperty._id}`;
-
-        const method = modalType === 'add' ? 'post' : 'put';
-
+    const handleStatusChange = async (id, status) => {
         try {
-            const res = await axios[method](url, currentProperty);
-            toast.success(`Property ${modalType === 'add' ? 'Added' : 'Updated'} Successfully`);
-            setShowModal(false);
+            const res = await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/properties/${id}/status`, { status });
+            toast.success(`Property status updated to ${status}`);
             handleFetch();
         } catch (error) {
-            console.error('There was an error!', error);
-            toast.error(error.response?.data?.message || 'An error occurred');
+            console.error('Error updating property status', error);
+            toast.error('Failed to update status');
         }
     };
 
-    const openModal = (type, property = {
-        title: '',
-        description: '',
-        type: 'Rent',
-        category: 'Floor',
-        price: 0,
-        areaSize: '',
-        bedrooms: 0,
-        bathrooms: 0,
-        yearBuilt: 0,
-        location: '',
-        mapLink: '',
-        vendor: '',
-        status: 'Pending',
-        images: []
-    }) => {
-        setModalType(type);
-        setCurrentProperty(property);
-        if (property.location) {
-            const location = locations.find(loc => loc._id === property.location);
-            setCurrentState(location?.state || '');
-            setCurrentLocality(location?.locality[0] || '');
-        }
+    const showVendorDetails = (vendor) => {
+        setSelectedVendor(vendor);
         setShowModal(true);
     };
 
-    const handleStateChange = (state) => {
-        setCurrentState(state);
-        const locality = locations.find(loc => loc.state === state)?.locality || [];
-        setCurrentLocality(locality[0] || '');
+    const showPropertyDetails = (property) => {
+        setSelectedProperty(property);
+        setShowViewModal(true);
     };
 
     return (
@@ -164,7 +108,9 @@ const AllProperty = () => {
                     <h4>All Properties</h4>
                 </div>
                 <div className="links">
-                    <button onClick={() => openModal('add')} className="add-new">Add New <i className="fa-solid fa-plus"></i></button>
+                    <button onClick={() => navigate('/add-property')} className="add-new">
+                        Add New <i className="fa-solid fa-plus"></i>
+                    </button>
                 </div>
             </div>
 
@@ -179,17 +125,43 @@ const AllProperty = () => {
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
+                <div className="selects">
+                    <label htmlFor="status">Filter by Status: </label> &nbsp;
+                    <select
+                        id="status"
+                        onChange={(e) => {
+                            const status = e.target.value;
+                            if (status === 'All') {
+                                setFilteredProperties(properties);
+                            } else {
+                                setFilteredProperties(properties.filter(property => property.status === status));
+                            }
+                        }}
+                    >
+                        <option value="All">All</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
             </div>
 
-            <section className="d-table">
+            <section className="dis-table">
                 <table className="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Sr.No.</th>
                             <th scope="col">Title</th>
-                            <th scope="col">Description</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Location</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Locality</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Area</th>
+                            <th scope="col">Bedrooms</th>
+                            <th scope="col">Bathrooms</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">View</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
@@ -199,11 +171,39 @@ const AllProperty = () => {
                             <tr key={property._id}>
                                 <th scope="row">{indexOfFirstItem + index + 1}</th>
                                 <td>{property.title}</td>
-                                <td>{property.description}</td>
                                 <td>{property.price}</td>
-                                <td>{property.location}</td>
+                                <td>{property.state}</td>
+                                <td>{property.locality}</td>
+                                <td>{property.type}</td>
+                                <td>{property.areaSize}</td>
+                                <td>{property.bedrooms} Bed</td>
+                                <td>{property.bathrooms} Bathroom</td>
                                 <td>
-                                    <button onClick={() => openModal('edit', property)} className="bt edit">
+                                    <span
+                                        className="owner-name"
+                                        onClick={() => showVendorDetails(property.vendor)}
+                                    >
+                                        {property.vendor?.name || 'N/A'}
+                                    </span>
+                                </td>
+                                <td>
+                                    <select
+                                        value={property.status}
+                                        onChange={(e) => handleStatusChange(property._id, e.target.value)}
+                                        className="form-select"
+                                    >
+                                        <option value="Pending">Pending</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Rejected">Rejected</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button onClick={() => showPropertyDetails(property)} className="bt view">
+                                        View <i className="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button onClick={() => navigate(`/edit-property/${property._id}`)} className="bt edit">
                                         Edit <i className="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </td>
@@ -218,7 +218,7 @@ const AllProperty = () => {
                 </table>
                 <nav>
                     <ul className="pagination justify-content-center">
-                        {Array.from({ length: Math.ceil(filteredProperties.length / itemPerPage) }, (_, i) => (
+                        {Array.from({ length: Math.ceil(properties.length / itemPerPage) }, (_, i) => (
                             <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
                                 <button className="page-link" onClick={() => handlePageChange(i + 1)}>{i + 1}</button>
                             </li>
@@ -227,108 +227,61 @@ const AllProperty = () => {
                 </nav>
             </section>
 
-            {/* Modal for Add/Edit Property */}
-            {showModal && (
-                <div className="modal show d-block" tabIndex="-1">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">{modalType === 'add' ? 'Add New Property' : 'Edit Property'}</h5>
-                                <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
-                            </div>
-                            <div className="modal-body">
-                                <div className="mb-3">
-                                    <label htmlFor="title" className="form-label">Title</label>
-                                    <input type="text" className="form-control" id="title" value={currentProperty.title} onChange={(e) => setCurrentProperty({ ...currentProperty, title: e.target.value })} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="description" className="form-label">Description</label>
-                                    <textarea className="form-control" id="description" rows="3" value={currentProperty.description} onChange={(e) => setCurrentProperty({ ...currentProperty, description: e.target.value })}></textarea>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="type" className="form-label">Type</label>
-                                    <select className="form-select" id="type" value={currentProperty.type} onChange={(e) => setCurrentProperty({ ...currentProperty, type: e.target.value })}>
-                                        <option value="Rent">Rent</option>
-                                        <option value="Sale">Sale</option>
-                                    </select>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="category" className="form-label">Category</label>
-                                    <select className="form-select" id="category" value={currentProperty.category} onChange={(e) => setCurrentProperty({ ...currentProperty, category: e.target.value })}>
-                                        <option value="Floor">Floor</option>
-                                        <option value="Apartment">Apartment</option>
-                                        <option value="PG">PG</option>
-                                        <option value="House">House</option>
-                                        <option value="Rooms">Rooms</option>
-                                    </select>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="price" className="form-label">Price</label>
-                                    <input type="number" className="form-control" id="price" value={currentProperty.price} onChange={(e) => setCurrentProperty({ ...currentProperty, price: e.target.value })} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="areaSize" className="form-label">Area Size</label>
-                                    <input type="text" className="form-control" id="areaSize" value={currentProperty.areaSize} onChange={(e) => setCurrentProperty({ ...currentProperty, areaSize: e.target.value })} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="bedrooms" className="form-label">Bedrooms</label>
-                                    <input type="number" className="form-control" id="bedrooms" value={currentProperty.bedrooms} onChange={(e) => setCurrentProperty({ ...currentProperty, bedrooms: e.target.value })} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="bathrooms" className="form-label">Bathrooms</label>
-                                    <input type="number" className="form-control" id="bathrooms" value={currentProperty.bathrooms} onChange={(e) => setCurrentProperty({ ...currentProperty, bathrooms: e.target.value })} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="yearBuilt" className="form-label">Year Built</label>
-                                    <input type="number" className="form-control" id="yearBuilt" value={currentProperty.yearBuilt} onChange={(e) => setCurrentProperty({ ...currentProperty, yearBuilt: e.target.value })} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="state" className="form-label">State</label>
-                                    <select className="form-select" id="state" value={currentState} onChange={(e) => handleStateChange(e.target.value)}>
-                                        <option value="">Select State</option>
-                                        {locations.map(loc => (
-                                            <option key={loc._id} value={loc.state}>{loc.state}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="locality" className="form-label">Locality</label>
-                                    <select className="form-select" id="locality" value={currentLocality} onChange={(e) => setCurrentLocality(e.target.value)}>
-                                        <option value="">Select Locality</option>
-                                        {(locations.find(loc => loc.state === currentState)?.locality || []).map((loc, index) => (
-                                            <option key={index} value={loc}>{loc}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="mapLink" className="form-label">Map Link</label>
-                                    <input type="text" className="form-control" id="mapLink" value={currentProperty.mapLink} onChange={(e) => setCurrentProperty({ ...currentProperty, mapLink: e.target.value })} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="vendor" className="form-label">Vendor</label>
-                                    <input type="text" className="form-control" id="vendor" value={currentProperty.vendor} onChange={(e) => setCurrentProperty({ ...currentProperty, vendor: e.target.value })} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="status" className="form-label">Status</label>
-                                    <select className="form-select" id="status" value={currentProperty.status} onChange={(e) => setCurrentProperty({ ...currentProperty, status: e.target.value })}>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Rejected">Rejected</option>
-                                    </select>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="images" className="form-label">Images (Comma Separated URLs)</label>
-                                    <input type="text" className="form-control" id="images" value={currentProperty.images.join(',')} onChange={(e) => setCurrentProperty({ ...currentProperty, images: e.target.value.split(',') })} />
-                                </div>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
-                                <button type="button" className="btn btn-primary" onClick={handleAddOrUpdate}>{modalType === 'add' ? 'Add Property' : 'Update Property'}</button>
-                            </div>
+            {/* Modal for vendor details */}
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Vendor Details</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {selectedVendor ? (
+                        <div>
+                            <p><strong>Name:</strong> {selectedVendor.name}</p>
+                            <p><strong>Email:</strong> {selectedVendor.email}</p>
+                            <p><strong>Phone Number:</strong> {selectedVendor.phoneNumber}</p>
+                            <p><strong>Role:</strong> {selectedVendor.role}</p>
                         </div>
-                    </div>
-                </div>
-            )}
+                    ) : (
+                        <p>No vendor details available.</p>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Modal for property details */}
+            <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Property Details</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {selectedProperty ? (
+                        <div>
+                            
+                            <h5>{selectedProperty.title}</h5>
+                            <p><strong>Location:</strong> {selectedProperty.location}</p>
+                            <p><strong>Price:</strong> {selectedProperty.price}</p>
+                            <p><strong>Type:</strong> {selectedProperty.type}</p>
+                            <p><strong>Area:</strong> {selectedProperty.areaSize} sq.ft</p>
+                            <p><strong>Bedrooms:</strong> {selectedProperty.bedrooms}</p>
+                            <p><strong>Bathrooms:</strong> {selectedProperty.bathrooms}</p>
+                            {selectedProperty.images.map((imag,indexx)=>(
+                                <img key={indexx} src={imag} alt={selectedProperty.title} className='p-1' style={{ width: '48%', height: '250px' }} />
+                            ))}
+                            {/* Add more property details as needed */}
+                        </div>
+                    ) : (
+                        <p>No property details available.</p>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowViewModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 };

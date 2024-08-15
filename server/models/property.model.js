@@ -16,7 +16,7 @@ const propertySchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Floor', 'Apartment', 'PG', 'House' , 'Rooms'],
+    enum: ['Floor', 'Apartment', 'PG', 'House', 'Rooms'],
     required: true
   },
   price: {
@@ -41,8 +41,14 @@ const propertySchema = new mongoose.Schema({
     ref: 'Location',
     required: true
   },
-  mapLink:{
-    type:String
+  state: {
+    type: String
+  },
+  locality: {
+    type: String
+  },
+  mapLink: {
+    type: String
   },
   vendor: {
     type: mongoose.Schema.Types.ObjectId,
@@ -54,10 +60,13 @@ const propertySchema = new mongoose.Schema({
     enum: ['Pending', 'Approved', 'Rejected'],
     default: 'Pending'
   },
-  images: [{
-    type: String
-  }],
-} , { timestamps: true });
+  images: [
+    {
+      type:String,
+      required:[true,"Image is must required"]
+    }
+  ]
+}, { timestamps: true });
 
 const Property = mongoose.model('Property', propertySchema);
 

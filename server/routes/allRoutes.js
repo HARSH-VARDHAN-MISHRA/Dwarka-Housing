@@ -2,27 +2,30 @@ const express = require('express');
 const router = express.Router();
 
 // Controllers
-const {createProperty , getPropertyById, updateProperty, deleteProperty, getProperties, updatePropertyStatus, getAllProperty } = require('../controlers/property.controler');
+const {createProperty , getPropertyById, updateProperty, deleteProperty, getProperties, updatePropertyStatus, getAllProperty, getPropertiesByVendor } = require('../controlers/property.controler');
 // const userController = require('../controlers/user.controler');
 const { register, PasswordChangeRequest, ResendOtp, ResendSignOtp, verifyOtpForSignIn, VerifyOtp, LoginUser, getAllUsers, LoginAdmin } = require('../controlers/user.controler');
 
 const locationController = require('../controlers/location.contoler');
-const upload = require('../middlewares/upload'); // The Cloudinary multer setup
 
 
 // Middleware
 const authenticate = require('../middlewares/auth');
 const authorizeRoles = require('../middlewares/roleauth');
+// const { multipleImages } = require('../middlewares/Multer');
+const upload = require('../middlewares/Multer');
 
 // Property Routes
-router.post('/create-property',  upload.array('images', 10), createProperty); // Allow up to 10 images to be uploaded
+router.post('/create-property',upload.array("images" ,10) , createProperty); 
 
 router.get('/get-property-by-id/:id', getPropertyById);
 router.get('/get-all-properties', getAllProperty);
-router.put('/update-property/:id',  upload.array('images', 10), updateProperty);
-router.delete('/delete-property/:id',  deleteProperty);
+router.put('/update-property/:id', updateProperty);
+router.delete('/delete-property/:_id',  deleteProperty);
 router.get('/get-properties-by-query', getProperties);
-router.patch('/properties/:id/status',authorizeRoles('Admin'),  updatePropertyStatus);
+router.patch('/properties/:id/status',  updatePropertyStatus);
+router.get('/get-properties-by-vendor/:vendorId', getPropertiesByVendor);
+
 
 // User Routes
 // router.post('/register', userController.registerUser);

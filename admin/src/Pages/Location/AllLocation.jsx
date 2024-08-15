@@ -157,7 +157,7 @@ const AllLocation = () => {
                 </div>
             </div>
 
-            <section className="d-table">
+            <section className="dis-table">
                 <table className="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
