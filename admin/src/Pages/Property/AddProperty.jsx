@@ -24,12 +24,42 @@ const AddProperty = () => {
     });
 
     const [locations, setLocations] = useState([]);
+    const [propertyCategory, setPropertyCategory] = useState([]);
+    const [propertyType, setPropertyType] = useState([]);
     const [currentState, setCurrentState] = useState('');
     const [currentLocality, setCurrentLocality] = useState('');
     const [isLoading, setIsloding] = useState(false);
 
 
     const navigate = useNavigate();
+
+
+    const fetchPropertyCategories = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-property-category`);
+            if (response.data.success) {
+                setPropertyCategory(response.data.data);
+            } else {
+                toast.error('Failed to load locations');
+            }
+        } catch (error) {
+            console.error('Error fetching locations:', error);
+            toast.error('An error occurred while fetching locations');
+        }
+    };
+    const fetchPropertyTypes = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/properties/types`);
+            if (response.data.success) {
+                setPropertyType(response.data.data);
+            } else {
+                toast.error('Failed to load locations');
+            }
+        } catch (error) {
+            console.error('Error fetching locations:', error);
+            toast.error('An error occurred while fetching locations');
+        }
+    };
 
     // Fetch locations from the API
     useEffect(() => {
@@ -48,6 +78,8 @@ const AddProperty = () => {
         };
 
         fetchLocations();
+        fetchPropertyCategories();
+        fetchPropertyTypes();
 
         // Get vendor ID from sessionStorage
         const user = JSON.parse(sessionStorage.getItem('hansBuilderUser'));
@@ -141,19 +173,18 @@ const AddProperty = () => {
                     <div className="col-md-4">
                         <label htmlFor="type" className="form-label">Type</label>
                         <select onChange={handleInputChange} name="type" value={formData.type} className="form-select" id="type" required>
-                            <option value="Rent">Rent</option>
-                            <option value="Sale">Sale</option>
+                            {propertyType && propertyType.map((type,ind)=>(
+                                <option key={ind} value={type}>{type}</option>
+                            ))}
                         </select>
                     </div>
 
                     <div className="col-md-4">
                         <label htmlFor="category" className="form-label">Category</label>
                         <select onChange={handleInputChange} name="category" value={formData.category} className="form-select" id="category" required>
-                            <option value="Floor">Floor</option>
-                            <option value="Apartment">Apartment</option>
-                            <option value="PG">PG</option>
-                            <option value="House">House</option>
-                            <option value="Rooms">Rooms</option>
+                            {propertyCategory && propertyCategory.map((category)=>(
+                                <option value={category}>{category}</option>
+                            ))}
                         </select>
                     </div>
 

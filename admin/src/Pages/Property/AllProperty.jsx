@@ -8,6 +8,8 @@ import { Modal, Button } from 'react-bootstrap'; // Import Bootstrap components
 
 const AllProperty = () => {
     const [properties, setProperties] = useState([]);
+    const [propertyCategory, setPropertyCategory] = useState([]);
+    const [propertyType, setPropertyType] = useState([]);
     const [filteredProperties, setFilteredProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -18,6 +20,34 @@ const AllProperty = () => {
     const itemPerPage = 8;
 
     const navigate = useNavigate();
+
+    const fetchPropertyCategories = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-property-category`);
+            if (response.data.success) {
+                setPropertyCategory(response.data.data);
+            } else {
+                toast.error('Failed to load locations');
+            }
+        } catch (error) {
+            console.error('Error fetching locations:', error);
+            toast.error('An error occurred while fetching locations');
+        }
+    };
+
+    const fetchPropertyTypes = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/properties/types`);
+            if (response.data.success) {
+                setPropertyType(response.data.data);
+            } else {
+                toast.error('Failed to load locations');
+            }
+        } catch (error) {
+            console.error('Error fetching locations:', error);
+            toast.error('An error occurred while fetching locations');
+        }
+    };
 
     const handleFetch = async () => {
         try {
@@ -40,6 +70,8 @@ const AllProperty = () => {
 
     useEffect(() => {
         handleFetch();
+        fetchPropertyCategories();
+        fetchPropertyTypes();
     }, []);
 
     useEffect(() => {

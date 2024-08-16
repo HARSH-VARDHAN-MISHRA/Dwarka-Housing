@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Controllers
-const {createProperty , getPropertyById, updateProperty, deleteProperty, getProperties, updatePropertyStatus, getAllProperty, getPropertiesByVendor } = require('../controlers/property.controler');
+const {createProperty , getPropertyById, updateProperty, deleteProperty, getProperties, updatePropertyStatus, getAllProperty, getPropertiesByVendor, getApprovedProperties, getPropertyCategory, getPropertiesByCategory, getPropertyTypes, getPropertiesByType, getApprovedPropertiesByCategory, getPropertyByName } = require('../controlers/property.controler');
 // const userController = require('../controlers/user.controler');
 const { register, PasswordChangeRequest, ResendOtp, ResendSignOtp, verifyOtpForSignIn, VerifyOtp, LoginUser, getAllUsers, LoginAdmin } = require('../controlers/user.controler');
 
@@ -19,12 +19,20 @@ const upload = require('../middlewares/Multer');
 router.post('/create-property',upload.array("images" ,10) , createProperty); 
 
 router.get('/get-property-by-id/:id', getPropertyById);
+router.get('/property-by-name/:name', getPropertyByName);
 router.get('/get-all-properties', getAllProperty);
 router.put('/update-property/:id', updateProperty);
 router.delete('/delete-property/:_id',  deleteProperty);
 router.get('/get-properties-by-query', getProperties);
 router.patch('/properties/:id/status',  updatePropertyStatus);
 router.get('/get-properties-by-vendor/:vendorId', getPropertiesByVendor);
+router.get('/approved-properties',getApprovedProperties)
+router.get('/get-property-category',getPropertyCategory)
+router.get('/properties/category/:category', getPropertiesByCategory);
+router.get('/approved-properties/:category', getApprovedPropertiesByCategory);
+router.get('/properties/types', getPropertyTypes); 
+router.get('/properties/type/:type', getPropertiesByType); 
+
 
 
 // User Routes

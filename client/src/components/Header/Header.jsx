@@ -1,52 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.png';
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
 
-
-const navLinks = [
-  { title: 'Home', url: '/' },
-  { title: 'About Us', url: 'about' },
-  {
-    title: 'Property',
-    url: 'properties',
-    dropdown: [
-      { title: 'Buy', url: 'properties' },
-      { title: 'Rent ', url: 'properties' },
-      { title: 'Commercial', url: 'properties' },
-      { title: 'PG', url: 'properties' },
-    ],
-  },
-  // {
-  //   title: 'Pages',
-  //   url: '#',
-  //   dropdown: [
-  //     { title: 'Gallery', url: 'gallery' },
-  //     {
-  //       title: 'Services',
-  //       url: '#',
-  //       dropdown: [
-  //         { title: 'Services', url: 'services' },
-  //         { title: 'Services Details', url: 'services-details' },
-  //       ],
-  //     },
-  //     {
-  //       title: 'Our Team',
-  //       url: '#',
-  //       dropdown: [
-  //         { title: 'Our Team', url: 'team' },
-  //         { title: 'Our Team Details', url: 'team-details' },
-  //       ],
-  //     },
-  //     { title: 'FAQ', url: 'faq' },
-  //   ],
-  // },
-  // { title: 'Property', url: 'properties' },
-  { title: 'Blog', url: 'blog' },
-  { title: 'Contact Us', url: 'contact' },
-];
 
 
 
@@ -54,6 +14,41 @@ const Header = () => {
   const [mobNav, setMobNav] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+
+  const [propertyCategory, setPropertyCategory] = useState([]);
+
+  const fetchPropertyCategories = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-property-category`);
+      if (response.data.success) {
+        setPropertyCategory(response.data.data);
+      } else {
+        toast.error('Failed to load locations');
+      }
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+      toast.error('An error occurred while fetching locations');
+    }
+  };
+
+  useEffect(() => {
+    fetchPropertyCategories();
+  }, [])
+
+  const navLinks = [
+    { title: 'Home', url: '/' },
+    { title: 'About Us', url: 'about' },
+    {
+      title: 'Property',
+      url: 'properties',
+      dropdown: propertyCategory.map(category => ({
+        title: category,
+        url: `properties/${category.replace(/\s+/g, '-')}`
+      }))
+    },
+    // { title: 'Blog', url: 'blog' },
+    { title: 'Contact Us', url: 'contact' },
+  ];
 
   const renderDropdown = (dropdown) => {
     return (
@@ -182,7 +177,7 @@ const Header = () => {
             </div>
           </nav>
 
-          
+
         </div>
 
       </div>

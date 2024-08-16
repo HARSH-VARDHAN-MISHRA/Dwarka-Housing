@@ -102,6 +102,160 @@ exports.createProperty = async (req, res) => {
 
 
 
+exports.getPropertyCategory = async (req, res) => {
+    try {
+        // Retrieve all enum values from the schema for the category field
+        const categories = Property.schema.path('category').enumValues;
+
+        res.status(200).json({
+            success: true,
+            data: categories,
+            message: "Property Categories Found"
+        });
+
+    } catch (error) {
+        console.error("Error fetching property categories:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
+
+exports.getPropertiesByCategory = async (req, res) => {
+    try {
+        const { category } = req.params; // Assuming the category is passed as a route parameter
+
+        // Check if the category is a valid enum value
+        const validCategories = Property.schema.path('category').enumValues;
+        if (!validCategories.includes(category)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid category"
+            });
+        }
+
+        // Find properties by category and populate vendor details
+        const properties = await Property.find({ category }).populate('vendor', '-password -__v');
+
+        if (properties.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No properties found for this category"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: properties,
+            message: "Properties found for the selected category"
+        });
+
+    } catch (error) {
+        console.error("Error fetching properties by category:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
+
+exports.getApprovedPropertiesByCategory = async (req, res) => {
+    try {
+        const { category } = req.params;
+
+        // Check if the category is a valid enum value
+        const validCategories = Property.schema.path('category').enumValues;
+        if (!validCategories.includes(category)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid category"
+            });
+        }
+
+        // Find properties by category and status, and populate vendor details
+        const properties = await Property.find({ category, status: 'Approved' }).populate('vendor', '-password -__v');
+
+        if (properties.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No approved properties found for this category"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: properties,
+            message: "Approved properties found for the selected category"
+        });
+
+    } catch (error) {
+        console.error("Error fetching approved properties by category:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
+
+
+exports.getPropertyTypes = async (req, res) => {
+    try {
+        // Retrieve all enum values from the schema
+        const types = Property.schema.path('type').enumValues;
+
+        res.status(200).json({
+            success: true,
+            data: types,
+            message: "Property types found"
+        });
+
+    } catch (error) {
+        console.error("Error fetching property types:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
+
+exports.getPropertiesByType = async (req, res) => {
+    try {
+        const { type } = req.params; // Assuming the type is passed as a route parameter
+
+        // Check if the type is a valid enum value
+        const validTypes = Property.schema.path('type').enumValues;
+        if (!validTypes.includes(type)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid type"
+            });
+        }
+
+        // Find properties by type and populate vendor details
+        const properties = await Property.find({ type }).populate('vendor', '-password -__v');
+
+        if (properties.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No properties found for this type"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: properties,
+            message: "Properties found for the selected type"
+        });
+
+    } catch (error) {
+        console.error("Error fetching properties by type:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
 
 
 // Get a property by ID
@@ -124,6 +278,32 @@ exports.getPropertyById = async (req, res) => {
         });
     }
 };
+exports.getPropertyByName = async (req, res) => {
+    try {
+        // Use the property name from the request parameters to find the property
+        const propertyName = req.params.name;
+
+        // Find the property by its name, case-insensitive search with regex
+        const property = await Property.findOne({ title: new RegExp(`^${propertyName}$`, 'i') }).populate('location vendor');
+
+        if (!property) {
+            return res.status(404).json({ message: 'Property not found' });
+        }
+
+        res.status(200).json({
+            success: true,
+            msg: "Property Found",
+            data: property
+        });
+    } catch (error) {
+        console.log("Error: ", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
+
 
 // Update a property
 exports.updateProperty = async (req, res) => {
@@ -223,7 +403,6 @@ exports.getAllProperty = async (req, res) => {
     }
 };
 
-
 // Get all properties or filter by location, type, category, etc.
 exports.getProperties = async (req, res) => {
     try {
@@ -253,8 +432,6 @@ exports.updatePropertyStatus = async (req, res) => {
     }
 };
 
-
-
 exports.getPropertiesByVendor = async (req, res) => {
     try {
         const vendorId = req.params.vendorId;
@@ -283,3 +460,29 @@ exports.getPropertiesByVendor = async (req, res) => {
         });
     }
 };
+
+
+exports.getApprovedProperties = async (req,res) =>{
+    try {
+        const approvedProperties = await Property.find({status : 'Approved'}).populate('vendor', '-password -__v')
+
+        if(approvedProperties.length === 0){
+            return res.status(404).json({
+                success:false,
+                message:"No Approved Properties found"
+            })
+        }
+
+        res.status(200).json({
+            success:true,
+            data:approvedProperties,
+            message:"Approved Properties Found"
+        })
+    } catch (error) {
+        console.error("Error fetching the approved Properties: ",error);
+        return res.status(500).json({
+            success:false,
+            message:"Internal Server Error"
+        })
+    }
+}

@@ -223,7 +223,6 @@
     flex-basis: 80%;
 }
 
-
 @media only screen and (max-width: 1000px){
     .advance__search__content {
         flex-basis: 100%;
@@ -232,16 +231,65 @@
 
 
 
+/* -------------  */
+.text-white{
+    color: white !important;
+}
+.property__one__left h3{
+    line-height: 1rem;
+}
+.property__two__title h4{
+    padding-bottom: 1rem;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+}
+.property__two__title h4:after {
+    bottom: 5px;
+    height: 2px;
+}
 
+
+.grid-4{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 1rem;
+}
+/* For medium screens (tablets and small desktops) */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .grid-4 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 767px) {
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .see__pad {
+        padding: 40px 0px;
+    }
+    .property__one__left h3 {
+        line-height: 1.8rem;
+    }
+}
+/* For extra small screens (very small mobile devices) */
+@media (max-width: 340px) {
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 .sec-title.mb-5 h2 {
     margin-bottom: 3rem;
 }
-/* =============== property-single-col =====  */
+/* ================================ property-single-col ===========================  */
 
 .property-single-col{
     margin-bottom: 1rem;
+    padding: 0.3rem;
+    border: 1px solid #ded9d9;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
 }
 .property-single-col .img{
     overflow: hidden;
@@ -264,11 +312,39 @@
     border-radius: 5px;
     margin-bottom: 0.6rem;
 }
+.property-single-col .pro-detail{
+    position: relative;
+}
+.property-single-col .pro-detail .price{
+    background: linear-gradient(135deg, var(--primary-color), #004274);
+    color: #fff;
+    float: right;
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+    position: relative;
+    width: -webkit-max-content;
+    width: max-content;
+}
+.property-single-col .pro-detail .price:after{
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #fff;
+    border-top: 10px solid transparent;
+    content: "";
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+}
 .property-single-col .pro-detail .pro-name{
     font-weight: 600;
     font-size: 1.2rem;
     font-family: var(--secondary-font);
     color: var(--primary-color);
+}
+.property-single-col .pro-detail .brief-info{
+    padding-bottom: 0rem;
 }
 .property-single-col .pro-detail address{
     color: var(--color-light);

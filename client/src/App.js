@@ -15,18 +15,27 @@ import SignIn from './components/Login/SignIn';
 import OtpSignUp from './components/Login/OtpSignUp';
 
 import { ToastContainer } from 'react-toastify';
-
+import PropertyByCategory from './Pages/PropertyPage/PropertyByCategory';
+import PropertyDetailByCategory from './Pages/PropertyDetail/PropertyDetailByCategory';
+import AllProperty from './Pages/PropertyPage/AllProperty';
+import PropertyBySearch from './Pages/PropertyPage/PropertyBySearch';
 function App() {
   return (
     <>
     <BrowserRouter>
     <div class="boxed_wrapper">
-
       <Header/>
       <ToastContainer />
       <Routes>
         <Route path='/' element={<Home/>} />
-        <Route path='/properties' element={<PropertyPage/>} />
+
+        {/* <Route path='/properties' element={<PropertyPage/>} /> */}
+        <Route path="/search" element={<PropertyBySearch />} />
+        <Route path='/properties' element={<AllProperty/>} />
+        <Route path='/properties/:categoryName' element={<PropertyByCategory/>} />
+
+        <Route path='/property/:categoryName/:titleName' element={<PropertyDetailByCategory/>} />
+
         <Route path='/property/detail' element={<PropertyDetail/>} />
         <Route path='/about' element={<AboutPage/>} />
         <Route path='/blog' element={<BlogPage/>} />
