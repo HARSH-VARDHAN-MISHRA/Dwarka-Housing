@@ -165,9 +165,37 @@ const Home = () => {
               </div>
             </div>
             {/* Additional banner content */}
+            <div className="apartment_number">
+              <h5>We have more than <span>12,000</span> apartments and places to choose from.</h5>
+            </div>
+            <div className="banner__botom__section">
+              <div className="bottom__content">
+                <div className="content__block">
+                  <img src="https://avatars.githubusercontent.com/u/138967484?v=4" alt />
+                  <img src="https://avatars.githubusercontent.com/u/145193630?v=4" alt />
+                  <img src="https://avatars.githubusercontent.com/u/138967484?v=4" alt />
+                </div>
+                <div className="content__block">
+                  <p>1k+ People</p>
+                  <p>Successfully Getting House</p>
+                </div>
+                <div className="content__block">
+                  <div className="logo__image">
+                    <img src="assets/images/banner/banner-one-logo.png" alt />
+                  </div>
+                  <p>Excellent <span>100+</span> reviews</p>
+                </div>
+              </div>
+            </div>
+            </div>
+            {/* Banner right side */}
+            <div className="banner__one__right">
+              <div className="image__one">
+                <figure className="image-box wow slideInUp animated animated animated" data-wow-delay="00ms" data-wow-duration="1500ms" style={{ visibility: 'visible', animationDuration: '1500ms', animationDelay: '0ms', animationName: 'slideInUp' }}><img src="assets/images/banner/banner-01.jpg" alt /></figure>
+              </div>
+            </div>
+
           </div>
-          {/* Banner right side */}
-        </div>
       </section>
 
       <section className="property-list see__pad my-5 ">
