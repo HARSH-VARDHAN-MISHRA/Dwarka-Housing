@@ -237,7 +237,7 @@ const PropertyDetail = () => {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="property__two">
+                                {/* <div className="property__two">
                                     <div className="property__two__title">
                                         <h4>Location</h4>
                                     </div>
@@ -248,7 +248,7 @@ const PropertyDetail = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
 
                             </div>
                         </div>
