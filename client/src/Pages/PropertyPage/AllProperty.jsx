@@ -108,6 +108,11 @@ const AllProperty = () => {
         fetchPropertyTypes();
         fetchPropertyCategories();
         fetchLocations();
+
+        window.scrollTo({
+            top:0,
+            behavior:'smooth'
+        })
     }, []);
 
     useEffect(() => {

@@ -30,7 +30,7 @@
       margin: 0px 100px;
     }
     .header__submit__btn{
-      display: none;
+      /* display: none; */
     }
     .banner__one .banner__one__content {
       margin: 0px 20px;

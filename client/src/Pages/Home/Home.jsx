@@ -3,6 +3,8 @@ import axios from 'axios';
 import Services from '../../components/Services/Services';
 import Testimonial from '../../components/Testimonial/Testimonial';
 import { useNavigate } from 'react-router-dom';
+import './Home.css'
+import HomePageProperty from './HomePageProperty';
 
 const Home = () => {
   const [propertyTypes, setPropertyTypes] = useState([]);
@@ -95,18 +97,20 @@ const Home = () => {
                               </div>
                               <label>Location</label>
                             </div>
-                            <select
-                              className="wide"
-                              value={selectedLocation}
-                              onChange={(e) => setSelectedLocation(e.target.value)}
-                            >
-                              <option value="">Select State</option>
-                              {locations.map(location => (
-                                <option key={location._id} value={location.state}>
-                                  {location.state}
-                                </option>
-                              ))}
-                            </select>
+                            <div className="select-wrapper">
+                              <select
+                                className="wide"
+                                value={selectedLocation}
+                                onChange={(e) => setSelectedLocation(e.target.value)}
+                              >
+                                <option value="">Select State</option>
+                                {locations.map(location => (
+                                  <option key={location._id} value={location.state}>
+                                    {location.state}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
                           </div>
 
                           <div className="form-group">
@@ -116,20 +120,22 @@ const Home = () => {
                               </div>
                               <label>Sub Location</label>
                             </div>
-                            <select
-                              className="wide"
-                              value={selectedSubLocation}
-                              onChange={(e) => setSelectedSubLocation(e.target.value)}
-                            >
-                              <option value="">Select Locality</option>
-                              {locations
-                                .find(location => location.state === selectedLocation)
-                                ?.locality.map((locality, index) => (
-                                  <option key={index} value={locality}>
-                                    {locality}
-                                  </option>
-                                ))}
-                            </select>
+                            <div className="select-wrapper">
+                              <select
+                                className="wide"
+                                value={selectedSubLocation}
+                                onChange={(e) => setSelectedSubLocation(e.target.value)}
+                              >
+                                <option value="">Select Locality</option>
+                                {locations
+                                  .find(location => location.state === selectedLocation)
+                                  ?.locality.map((locality, index) => (
+                                    <option key={index} value={locality}>
+                                      {locality}
+                                    </option>
+                                  ))}
+                              </select>
+                            </div>
                           </div>
 
                           <div className="form-group">
@@ -139,6 +145,7 @@ const Home = () => {
                               </div>
                               <label>Property Type</label>
                             </div>
+                            <div className="select-wrapper">
                             <select
                               className="wide"
                               value={selectedType}
@@ -150,6 +157,7 @@ const Home = () => {
                                 </option>
                               ))}
                             </select>
+                            </div>
                           </div>
 
                           <div className="form-group message-btn centred">
@@ -166,7 +174,7 @@ const Home = () => {
             </div>
             {/* Additional banner content */}
             <div className="apartment_number">
-              <h5>We have more than <span>12,000</span> apartments and places to choose from.</h5>
+              <h5>We have more than <span>1,000</span> apartments and places to choose from.</h5>
             </div>
             <div className="banner__botom__section">
               <div className="bottom__content">
@@ -198,14 +206,15 @@ const Home = () => {
           </div>
       </section>
 
-      <section className="property-list see__pad my-5 ">
+      <section className="property-list see__pad ">
         <div className="container">
-          <div className="sec-title mb-5 text-center">
+          <div className="sec-title md-mb-5  text-center">
             <div className="sub__title">
               <span>Our Properties</span>
             </div>
             <h2>Our <span> Property </span> </h2>
           </div>
+          <HomePageProperty/>
         </div>
       </section>
 

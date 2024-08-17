@@ -21,6 +21,12 @@ const PropertyBySearch = () => {
   const location = useLocation();
 
   useEffect(() => {
+
+    window.scrollTo({
+      top:0,
+      behavior:'smooth'
+  })
+  
     const fetchProperties = async () => {
       setLoading(true);
       setError(null);
@@ -132,9 +138,10 @@ const PropertyBySearch = () => {
         </div>
       </div>
 
-      <div className="grid-4">
+      <div className="grid-4 mb-60">
         {filteredProperties.length > 0 ? (
           filteredProperties.map((property) => (
+            
             <div key={property._id} className="property-single-col">
               <Link to={`/property/${property.category.replace(/\s+/g, '-')}/${property.title.replace(/\s+/g, '-')}`} className="img">
                 <div className="absolute category-tag">{property.category}</div>
@@ -152,9 +159,14 @@ const PropertyBySearch = () => {
                 </p>
               </Link>
             </div>
+            
           ))
         ) : (
-          <h3>No properties found for the selected criteria.</h3>
+          <div className="row">
+            <div className="col-12 text-center ">
+              <h3>No properties found for the selected criteria.</h3>
+            </div>
+          </div>
         )}
       </div>
     </div>

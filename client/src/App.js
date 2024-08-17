@@ -19,6 +19,7 @@ import PropertyByCategory from './Pages/PropertyPage/PropertyByCategory';
 import PropertyDetailByCategory from './Pages/PropertyDetail/PropertyDetailByCategory';
 import AllProperty from './Pages/PropertyPage/AllProperty';
 import PropertyBySearch from './Pages/PropertyPage/PropertyBySearch';
+import Profile from './Pages/Vendor/Profile';
 function App() {
   return (
     <>
@@ -47,6 +48,7 @@ function App() {
           <Route path='/sign-up' element={<SignIn />} />
           <Route path='/sign-up/confirm-account/:email' element={<OtpSignUp />} />
 
+          <Route path='/profile' element={<Profile />} />
       </Routes>
       <Footer/>
     </div>

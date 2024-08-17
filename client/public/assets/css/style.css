@@ -1316,7 +1316,7 @@ header.main-header.style-one {
   position: absolute;
   border-radius: 0px 5px 5px 0px;
   width: 62px;
-  height: 119px;
+  height: 100%;
 }
 .property__form .theme-btn-one:before{
   display: none;

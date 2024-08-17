@@ -103,8 +103,8 @@ const Header = () => {
                 <div className="header__right__button">
 
                   <div className="header__submit__btn">
-                    <Link to="contact" className="btn-1">
-                      Quick Contact
+                    <Link to="/sign-up" className="btn-1">
+                      Add your Property
                       <span />
                     </Link>
                   </div>
@@ -146,7 +146,7 @@ const Header = () => {
               <Link to={`/`}><img src={logo} alt="logo" title="Hans Builders" /></Link>
             </div>
             <div className="menu-outer">
-              <nav className="main-menu navbar-expand-md navbar-light">
+              <nav className=" navbar-expand-md navbar-light">
                 <div className="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                   <ul className="navigation clearfix">
                     {navLinks.map((link, index) => (
