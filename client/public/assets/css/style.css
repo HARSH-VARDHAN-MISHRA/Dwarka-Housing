@@ -126,7 +126,7 @@
 .main-header .logo-box {
   position: relative;
   display: block;
-  padding: 50px 0px;
+  /* padding: 50px 0px; */
 }
 .main-header .logo-box img{
   width: 200px;
@@ -609,6 +609,7 @@
   opacity: 0;
   visibility: hidden;
   z-index: 999999;
+  transition: all 0.7s ease;
 }
 
 .mobile-menu .navbar-collapse{
@@ -864,7 +865,7 @@ div#mCSB_1_container{
 
 .mobile-menu .contact-info {
   position: relative;
-  padding: 50px 30px 20px 30px;
+  padding: 1rem;
 }
 
 .mobile-menu .contact-info h4 {

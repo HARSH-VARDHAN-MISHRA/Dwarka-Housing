@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loader from '../../components/Loader/Loader';
+import FormatedIndianPrice from '../../components/FormatedIndianPrice/FormatedIndianPrice';
 
 const AllProperty = () => {
     const [properties, setProperties] = useState([]);
@@ -68,7 +69,7 @@ const AllProperty = () => {
         try {
             setIsLoading(true);
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/approved-properties`);
-            console.log('API Response:', response.data);  // Debugging
+            // console.log('API Response:', response.data);  // Debugging
             if (response.data.success) {
                 const filteredProperties = response.data.data.filter(property => 
                     (selectedType ? property.type === selectedType : true) &&
@@ -224,7 +225,7 @@ const AllProperty = () => {
                                         {property.type} | {property.bedrooms} Beds | {property.bathrooms} Baths
                                     </p>
                                     <p className="price">
-                                        ₹{property.price.toLocaleString()}
+                                        ₹{FormatedIndianPrice(property.price)}
                                     </p>
                                 </Link>
                             </div>

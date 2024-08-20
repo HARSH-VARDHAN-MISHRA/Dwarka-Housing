@@ -20,6 +20,8 @@ import PropertyDetailByCategory from './Pages/PropertyDetail/PropertyDetailByCat
 import AllProperty from './Pages/PropertyPage/AllProperty';
 import PropertyBySearch from './Pages/PropertyPage/PropertyBySearch';
 import Profile from './Pages/Vendor/Profile';
+import AddProperty from './Pages/Vendor/AddProperty';
+import ResetPassword from './components/Login/ResetPassword';
 function App() {
   return (
     <>
@@ -49,6 +51,8 @@ function App() {
           <Route path='/sign-up/confirm-account/:email' element={<OtpSignUp />} />
 
           <Route path='/profile' element={<Profile />} />
+          <Route path='/profile/add-property' element={<AddProperty />} />
+          <Route path='/profile/reset-password' element={<ResetPassword />} />
       </Routes>
       <Footer/>
     </div>

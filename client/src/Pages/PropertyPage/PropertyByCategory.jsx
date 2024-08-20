@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loader from '../../components/Loader/Loader';
+import FormatedIndianPrice from '../../components/FormatedIndianPrice/FormatedIndianPrice';
 
 const PropertyByCategory = () => {
     const { categoryName } = useParams();
@@ -214,7 +215,7 @@ const PropertyByCategory = () => {
                                     <p className="brief-info">
                                         {property.type} | {property.bedrooms} Beds | {property.bathrooms} Baths
                                     </p>
-                                    <p className="price">₹{property.price.toLocaleString()}  </p>
+                                    <p className="price">₹{FormatedIndianPrice(property.price)}  </p>
                                     <p className='bhk'>{property.areaSize} sq.ft</p>
                                 </Link>
                             </div>

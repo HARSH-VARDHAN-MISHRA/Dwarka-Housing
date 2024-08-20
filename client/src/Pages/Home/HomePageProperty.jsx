@@ -13,7 +13,8 @@ const HomePageProperty = () => {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/approved-properties`);
 
                 if (response.data && Array.isArray(response.data.data)) {
-                    setProperties(response.data.data); // Access the data array within the response object
+                    const reverseData = response.data.data.reverse()
+                    setProperties(reverseData); // Access the data array within the response object
                 } else {
                     setIsError(true); // Handle the case where data is not an array
                     console.error('Unexpected data format:', response.data);

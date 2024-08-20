@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader'; // Assuming you have a Loader component
+import FormatedIndianPrice from '../../components/FormatedIndianPrice/FormatedIndianPrice';
 
 const PropertyBySearch = () => {
   const [properties, setProperties] = useState([]);
@@ -155,7 +156,7 @@ const PropertyBySearch = () => {
                   {property.type} | {property.bedrooms} Beds | {property.bathrooms} Baths
                 </p>
                 <p className="price">
-                  ₹{property.price.toLocaleString()}
+                  ₹{FormatedIndianPrice(property.price)}
                 </p>
               </Link>
             </div>

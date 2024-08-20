@@ -16,6 +16,7 @@ const Header = () => {
   const isHomePage = location.pathname === '/';
 
   const [propertyCategory, setPropertyCategory] = useState([]);
+  const storedUser = JSON.parse(sessionStorage.getItem('hansBuilderUser'));
 
   const fetchPropertyCategories = async () => {
     try {
@@ -103,10 +104,18 @@ const Header = () => {
                 <div className="header__right__button">
 
                   <div className="header__submit__btn">
-                    <Link to="/sign-up" className="btn-1">
-                      Add your Property
-                      <span />
-                    </Link>
+                    {storedUser ? (
+                      <Link to="/profile" className="btn-1">
+                        Profile
+                        <span />
+                      </Link>
+                    ) : (
+                      <Link to="/sign-up" className="btn-1">
+                        Add your Property
+                        <span />
+                      </Link>
+
+                    )}
                   </div>
                 </div>
               </div>
@@ -140,10 +149,10 @@ const Header = () => {
 
         <div className="mobile-menu">
           <div className="menu-backdrop" />
-          <div className="close-btn" onClick={toggleSideMobileBar}><i className="fas fa-times" /></div>
+          <div className="close-btn" onClick={toggleSideMobileBar} ><i className="fas fa-times" /></div>
           <nav className="menu-box mCustomScrollbar _mCS_1 mCS_no_scrollbar">
             <div className="nav-logo">
-              <Link to={`/`}><img src={logo} alt="logo" title="Hans Builders" /></Link>
+              <Link to={`/`} onClick={toggleSideMobileBar}><img src={logo} alt="logo" title="Hans Builders" /></Link>
             </div>
             <div className="menu-outer">
               <nav className=" navbar-expand-md navbar-light">
@@ -151,15 +160,32 @@ const Header = () => {
                   <ul className="navigation clearfix">
                     {navLinks.map((link, index) => (
                       <li key={index} className={link.dropdown ? 'dropdown' : ''}>
-                        <Link to={link.url}>{link.title}</Link>
+                        <Link to={link.url} onClick={toggleSideMobileBar}>{link.title}</Link>
                         {link.dropdown && renderDropdown(link.dropdown)}
                       </li>
                     ))}
+
                   </ul>
                 </div>
+
+                
               </nav>
+              <div className="text-center mt-3">
+              {storedUser ? (
+                  <Link to="/profile" onClick={toggleSideMobileBar} className="btn-1" style={{width:'80%',justifyContent:'center'}}>
+                    Profile
+                    <span />
+                  </Link>
+                ) : (
+                  <Link to="/sign-up" onClick={toggleSideMobileBar} className="btn-1" style={{width:'80%',justifyContent:'center'}}>
+                    Add your Property
+                    <span />
+                  </Link>
+                )}
+              </div>
             </div>
             <div className="contact-info">
+              
               <h4>Contact Info</h4>
               <ul>
                 <li>Plot.198, Sec 24, Pocket-9, Rohini, New Delhi, Delhi 110085</li>

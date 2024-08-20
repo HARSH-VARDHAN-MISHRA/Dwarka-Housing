@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Loader from '../../components/Loader/Loader';
 import formatDate from '../../components/formatDate/formatDate';
+import FormatedIndianPrice from '../../components/FormatedIndianPrice/FormatedIndianPrice';
 
 const PropertyDetailByCategory = () => {
 
@@ -70,7 +71,7 @@ const PropertyDetailByCategory = () => {
                                                 </ul>
                                             </div>
                                             <div className="property__one__right">
-                                                <span className="price">₹{property.price.toLocaleString()}</span>
+                                                <span className="price">₹{FormatedIndianPrice(property.price)}</span>
                                             </div>
                                         </div>
 
@@ -143,7 +144,7 @@ const PropertyDetailByCategory = () => {
                                                                     <span className="text__bold">Price:</span>
                                                                 </div>
                                                                 <div className="property__type__info__content">
-                                                                    <span>₹{property.price.toLocaleString()}</span>
+                                                                    <span>₹{(FormatedIndianPrice(property.price))}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -151,9 +152,8 @@ const PropertyDetailByCategory = () => {
                                                 </div>
                                             </div>
                                         </div>
-
                                         
-                                        <div className="property__two">
+                                        {/* <div className="property__two">
                                             <div className="property__two__title">
                                                 <h4>Location</h4>
                                             </div>
@@ -172,7 +172,7 @@ const PropertyDetailByCategory = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
 
