@@ -187,6 +187,7 @@ const AllProperty = () => {
                             <th scope="col">Price</th>
                             <th scope="col">State</th>
                             <th scope="col">Locality</th>
+                            <th scope="col">Category</th>
                             <th scope="col">Type</th>
                             <th scope="col">Area</th>
                             <th scope="col">Bedrooms</th>
@@ -207,6 +208,7 @@ const AllProperty = () => {
                                 <td>{property.state}</td>
                                 <td>{property.locality}</td>
                                 <td>{property.type}</td>
+                                <td>{property.category}</td>
                                 <td>{property.areaSize}</td>
                                 <td>{property.bedrooms} Bed</td>
                                 <td>{property.bathrooms} Bathroom</td>

@@ -13,6 +13,7 @@ const PropertyDetailByCategory = () => {
     const newTitleName = titleName.replace(/-/g, ' ');
 
     const [property, setProperty] = useState(null);
+    const [listedProperty, setListedProperty] = useState([])
 
     const fetchPropertyByPropertyTitle = async () => {
         try {
@@ -27,6 +28,20 @@ const PropertyDetailByCategory = () => {
         }
     };
 
+    const fetchPropertyByCategory = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/approved-properties/${newCategoryName}`);
+            if (response.data.success) {
+                const reverseData = response.data.data.reverse();
+                setListedProperty(reverseData);
+            } else {
+                console.error('Error fetching Properties: In Else');
+            }
+        } catch (error) {
+            console.error('Error fetching Properties:', error);
+        }
+    };
+
     useEffect(() => {
         window.scrollTo({
             top: 0,
@@ -34,6 +49,7 @@ const PropertyDetailByCategory = () => {
         });
 
         fetchPropertyByPropertyTitle();
+        fetchPropertyByCategory();
     }, [categoryName, titleName]);
 
 
@@ -76,14 +92,14 @@ const PropertyDetailByCategory = () => {
                                         </div>
 
                                         <div className="row mb-2">
-                                                {property.images && property.images.map((image, index) => (
-                                                    <div className="col-md-4 col-sm-6 mb-2" key={index}>
-                                                        <div className="property__image__box">
-                                                            <img src={image} alt={`Property image ${index + 1}`} className="img-fluid" />
-                                                        </div>
+                                            {property.images && property.images.map((image, index) => (
+                                                <div className="col-md-4 col-sm-6 mb-2" key={index}>
+                                                    <div className="property__image__box">
+                                                        <img src={image} alt={`Property image ${index + 1}`} className="img-fluid" />
                                                     </div>
-                                                ))}
-                                            </div>
+                                                </div>
+                                            ))}
+                                        </div>
 
                                         <div className="property__two">
                                             <div className="property__two__title">
@@ -152,27 +168,7 @@ const PropertyDetailByCategory = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        {/* <div className="property__two">
-                                            <div className="property__two__title">
-                                                <h4>Location</h4>
-                                            </div>
-                                            <div className="property__two__content">
-                                                <div className="location">
-                                                    <div className="image__box p_relative">
-                                                        <iframe
-                                                            src={property.mapLink}
-                                                            width={'100%'}
-                                                            height={450}
-                                                            style={{ border: 0 }}
-                                                            allowFullScreen
-                                                            loading="lazy"
-                                                            referrerPolicy="no-referrer-when-downgrade"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> */}
+
                                     </div>
                                 </div>
 
@@ -202,33 +198,54 @@ const PropertyDetailByCategory = () => {
 
                                         {/* Latest Listings */}
                                         <div className="sidebar__widget post__widget">
-                                            <div className="widget-title">
-                                                <h4 className="title">Latest Listings</h4>
-                                            </div>
-                                            <div className="widget-content">
-                                                <div className="post-inner">
-                                                    {/* Assuming you have latest listings data */}
-                                                    {/* {latestListings.map(listing => (
-                                                        <div className="post" key={listing.id}>
-                                                            <figure className="post__thumb">
-                                                                <Link to={listing.link}>
-                                                                    <img src={listing.imageUrl} alt={listing.title} />
-                                                                </Link>
-                                                            </figure>
-                                                            <div className="re__post__content">
-                                                                <h6><Link to={listing.link}>{listing.title}</Link></h6>
-                                                                <div className="location">
-                                                                    <p><span className="icon-icon-36" /> {listing.location}</p>
+                                            {listedProperty.length > 0 ? (
+                                                <>
+                                                    <div className="widget-title">
+                                                        <h4 className="title">Latest Listings</h4>
+                                                    </div>
+                                                    <div className="widget-content">
+                                                        <div className="post-inner">
+                                                            {/* Display properties */}
+                                                            {listedProperty.slice(0, 3).map(listing => (
+                                                                <div className="post" key={listing.id}>
+                                                                    <figure className="post__thumb">
+                                                                        <Link to={`/property/${listing.category.replace(/\s+/g, '-')}/${listing.title.replace(/\s+/g, '-')}`}>
+                                                                            <img src={listing.images[0]} alt={listing.title} />
+                                                                        </Link>
+                                                                    </figure>
+                                                                    <div className="re__post__content">
+                                                                        <h6>
+                                                                            <Link to={`/property/${listing.category.replace(/\s+/g, '-')}/${listing.title.replace(/\s+/g, '-')}`}>
+                                                                                {listing.title}
+                                                                            </Link>
+                                                                        </h6>
+                                                                        <div className="location">
+                                                                            <p><span className="icon-icon-36" /> {listing.state}, {listing.locality}</p>
+                                                                        </div>
+                                                                        <div className="price__post">
+                                                                            <p>₹{listing.price.toLocaleString()}</p>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="price__post">
-                                                                    <p>₹{listing.price.toLocaleString()}</p>
+                                                            ))}
+
+                                                            {/* Show "View All" button if more than 3 properties are available */}
+                                                            {listedProperty.length > 3 && (
+                                                                <div className="mt-3 text-center">
+                                                                    <Link to={`/properties/${newCategoryName.replace(/\s+/g, '-')}`} className="btn-1">
+                                                                        View All {newCategoryName}
+                                                                    </Link>
                                                                 </div>
-                                                            </div>
+                                                            )}
                                                         </div>
-                                                    ))} */}
-                                                </div>
-                                            </div>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <p>No properties available.</p>  
+                                                
+  )}
                                         </div>
+
 
                                     </div>
                                 </div>

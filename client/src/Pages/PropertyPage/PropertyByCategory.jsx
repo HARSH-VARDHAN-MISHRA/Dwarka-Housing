@@ -145,7 +145,7 @@ const PropertyByCategory = () => {
                 </div>
             </section>
 
-            <section className="filter-section mb-4">
+            <section className="filter-section mb-4 mt-20">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-3">
