@@ -32,7 +32,7 @@ const Login = () => {
             toast.success('Login SuccessFull')
             sessionStorage.setItem('hansBuilderToken',response.data.token);
             sessionStorage.setItem('hansBuilderUser', JSON.stringify(response.data.user));
-            navigate('/')
+            navigate('/profile')
 
         } catch (error) {
             console.log("Error While Login",error)
