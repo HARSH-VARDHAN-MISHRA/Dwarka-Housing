@@ -208,7 +208,7 @@ const PropertyDetailByCategory = () => {
                                                             {/* Display properties */}
                                                             {listedProperty.slice(0, 3).map(listing => (
                                                                 <div className="post" key={listing.id}>
-                                                                    <figure className="post__thumb">
+                                                                    <figure className="post__thumb mb-0">
                                                                         <Link to={`/property/${listing.category.replace(/\s+/g, '-')}/${listing.title.replace(/\s+/g, '-')}`}>
                                                                             <img src={listing.images[0]} alt={listing.title} />
                                                                         </Link>
