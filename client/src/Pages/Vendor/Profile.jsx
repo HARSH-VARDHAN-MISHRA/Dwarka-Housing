@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import FormatedIndianPrice from '../../components/FormatedIndianPrice/FormatedIndianPrice';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -143,7 +144,7 @@ const Profile = () => {
                   <div className="card-body">
                     <h5 className="card-title">{property.title}</h5>
                     <p className="card-text">{property.description}</p>
-                    <p><strong>Price:</strong> ₹{property.price.toLocaleString()}</p>
+                    <p><strong>Price:</strong> ₹{FormatedIndianPrice(property.price)}</p>
                     <p><strong>Category:</strong> {property.category}</p>
                     <p><strong>Type:</strong> {property.type}</p>
                     <p><strong>Location:</strong> {property.locality}, {property.state}</p>
