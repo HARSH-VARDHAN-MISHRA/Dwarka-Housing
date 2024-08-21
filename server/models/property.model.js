@@ -11,12 +11,12 @@ const propertySchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['Rent', 'Sale'],
+    enum: ['Rent', 'Buy'],
     required: true
   },
   category: {
     type: String,
-    enum: ['Floor', 'Apartment', 'PG', 'House', 'Rooms'],
+    enum: ['Buy', 'Rent', 'Commercial', 'PG', 'Plots'],
     required: true
   },
   price: {
