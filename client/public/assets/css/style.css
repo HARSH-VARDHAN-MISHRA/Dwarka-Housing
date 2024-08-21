@@ -65,6 +65,7 @@
   -webkit-transition:all 500ms ease;
   -ms-transition:all 500ms ease;
   -o-transition:all 500ms ease;
+  background: #c0defc;
 }
 
 .sticky-header{
@@ -131,6 +132,7 @@
 .main-header .logo-box img{
   width: 200px;
   height: 52px;
+  height: auto;
 }
 .main-header .menu-area {
   z-index: 1;
@@ -198,7 +200,7 @@
   float:left;
   cursor: pointer;
   z-index:2;
-  padding:45px 0px;
+  padding:15px 0px;
   margin: 0px 22px;
   -webkit-transition:all 300ms ease;
   -moz-transition:all 300ms ease;
@@ -539,7 +541,7 @@
   width: 30px;
   display: block;
   margin-bottom: 5px;
-  background-color: var(--secondary-color);
+  background-color: var(--bs-info);
   -webkit-transition: all 300ms ease;
   -moz-transition: all 300ms ease;
   -ms-transition: all 300ms ease;
@@ -1291,7 +1293,7 @@ header.main-header.style-one {
   background: var(--white-color);
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 0px 5px 5px 5px;
-  padding: 24px 70px 27px 20px;
+  padding: 5px 70px 6px 20px;
 }
 .banner__tab__section .tabs-content .tab .property__form .reserve-form {
   display: flex;

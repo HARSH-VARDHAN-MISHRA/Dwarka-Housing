@@ -137,7 +137,7 @@ const Home = () => {
                               </select>
                             </div>
                           </div>
-
+{/* 
                           <div className="form-group">
                             <div className="top__title">
                               <div className="icon">
@@ -158,7 +158,7 @@ const Home = () => {
                               ))}
                             </select>
                             </div>
-                          </div>
+                          </div> */}
 
                           <div className="form-group message-btn centred">
                             <button type="submit" className="theme-btn-one">

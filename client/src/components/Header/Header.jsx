@@ -74,6 +74,17 @@ const Header = () => {
 
 
         <header className={`main-header  ${isHomePage ? "style-one" : "style-three"}`}>
+          <div className="upper-head d-flex flex-row justify-content-between container ">
+            <div className="social-links">
+              <ul className="clearfix d-flex flex-row justify-content-between gap-2">
+                <li><a href="#"><span className="fab fa-twitter" /></a></li>
+                <li><a href="#"><span className="fab fa-facebook-square" /></a></li>
+                <li><a href="#"><span className="fab fa-instagram" /></a></li>
+                <li><a href="#"><span className="fab fa-youtube" /></a></li>
+              </ul>
+            </div>
+            <div className="number"><a href="tel:+918130543714">+91-8130543714</a></div>
+          </div>
           {/* header-lower */}
           <div className="header-lower">
             <div className="outer-box">
@@ -168,16 +179,16 @@ const Header = () => {
                   </ul>
                 </div>
 
-                
+
               </nav>
               <div className="text-center mt-3">
-              {storedUser ? (
-                  <Link to="/profile" onClick={toggleSideMobileBar} className="btn-1" style={{width:'80%',justifyContent:'center'}}>
+                {storedUser ? (
+                  <Link to="/profile" onClick={toggleSideMobileBar} className="btn-1" style={{ width: '80%', justifyContent: 'center' }}>
                     Profile
                     <span />
                   </Link>
                 ) : (
-                  <Link to="/sign-up" onClick={toggleSideMobileBar} className="btn-1" style={{width:'80%',justifyContent:'center'}}>
+                  <Link to="/sign-up" onClick={toggleSideMobileBar} className="btn-1" style={{ width: '80%', justifyContent: 'center' }}>
                     Add your Property
                     <span />
                   </Link>
@@ -185,7 +196,7 @@ const Header = () => {
               </div>
             </div>
             <div className="contact-info">
-              
+
               <h4>Contact Info</h4>
               <ul>
                 <li>Plot.198, Sec 24, Pocket-9, Rohini, New Delhi, Delhi 110085</li>
@@ -207,6 +218,10 @@ const Header = () => {
         </div>
 
       </div>
+
+      <a href="https://api.whatsapp.com/send?phone=918130543714" target="_blank" class="whatsapp_float">
+        <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
+      </a>
     </>
   );
 };

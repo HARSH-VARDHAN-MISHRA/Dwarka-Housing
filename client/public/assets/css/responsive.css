@@ -45,7 +45,7 @@
       order: 2 !important;
     }
     .property__form .form-group {
-      width: 30%;
+      width: 48%;
     }
     .banner__three .banner__three__left__content {
       padding: 50px;
@@ -894,9 +894,10 @@
     .main-header .logo-box img {
       width: 150px;
       height: 40px;
+      height: auto;
     }
     .main-header .logo-box {
-      padding: 20px 0px;
+      padding: 5px 0px;
     }
     .propertiest__section .lower-content .more__details li span {
       margin-right: 5px;

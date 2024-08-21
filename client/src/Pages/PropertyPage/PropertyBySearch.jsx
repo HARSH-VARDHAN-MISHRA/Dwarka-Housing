@@ -21,13 +21,23 @@ const PropertyBySearch = () => {
 
   const location = useLocation();
 
-  useEffect(() => {
+  // Function to extract query parameters from the URL
+  const getQueryParams = () => {
+    const searchParams = new URLSearchParams(location.search);
+    return {
+      type: searchParams.get('type') || '',
+      category: searchParams.get('category') || '',
+      state: searchParams.get('state') || '',
+      locality: searchParams.get('locality') || '',
+    };
+  };
 
+  useEffect(() => {
     window.scrollTo({
-      top:0,
-      behavior:'smooth'
-  })
-  
+      top: 0,
+      behavior: 'smooth'
+    });
+
     const fetchProperties = async () => {
       setLoading(true);
       setError(null);
@@ -42,7 +52,15 @@ const PropertyBySearch = () => {
           setPropertyCategories([...new Set(fetchedProperties.map(p => p.category))]);
           setStates([...new Set(fetchedProperties.map(p => p.state))]);
           setLocalities([...new Set(fetchedProperties.map(p => p.locality))]);
-          filterProperties(fetchedProperties);
+
+          const { type, category, state, locality } = getQueryParams();
+
+          setSelectedType(type);
+          setSelectedCategory(category);
+          setSelectedState(state);
+          setSelectedLocality(locality);
+
+          filterProperties(fetchedProperties, type, category, state, locality);
         } else {
           setError('No properties found.');
         }
@@ -54,25 +72,25 @@ const PropertyBySearch = () => {
     };
 
     fetchProperties();
-  }, []);
+  }, [location.search]); // Dependency on URL search params
 
-  useEffect(() => {
-    filterProperties(properties);
-  }, [selectedType, selectedCategory, selectedState, selectedLocality, priceRange, properties]);
-
-  const filterProperties = (properties) => {
+  const filterProperties = (properties, type, category, state, locality) => {
     const filtered = properties.filter(property => {
       return (
-        (!selectedType || property.type === selectedType) &&
-        (!selectedCategory || property.category === selectedCategory) &&
-        (!selectedState || property.state === selectedState) &&
-        (!selectedLocality || property.locality === selectedLocality) &&
+        (!type || property.type === type) &&
+        (!category || property.category === category) &&
+        (!state || property.state === state) &&
+        (!locality || property.locality === locality) &&
         (property.price >= priceRange[0] && property.price <= priceRange[1])
       );
     });
 
     setFilteredProperties(filtered);
   };
+
+  useEffect(() => {
+    filterProperties(properties, selectedType, selectedCategory, selectedState, selectedLocality);
+  }, [selectedType, selectedCategory, selectedState, selectedLocality, priceRange, properties]);
 
   if (loading) {
     return <Loader />; // Assuming you have a Loader component
@@ -142,7 +160,6 @@ const PropertyBySearch = () => {
       <div className="grid-4 mb-60">
         {filteredProperties.length > 0 ? (
           filteredProperties.map((property) => (
-            
             <div key={property._id} className="property-single-col">
               <Link to={`/property/${property.category.replace(/\s+/g, '-')}/${property.title.replace(/\s+/g, '-')}`} className="img">
                 <div className="absolute category-tag">{property.category}</div>
@@ -160,7 +177,6 @@ const PropertyBySearch = () => {
                 </p>
               </Link>
             </div>
-            
           ))
         ) : (
           <div className="row">
