@@ -66,6 +66,7 @@
   -ms-transition:all 500ms ease;
   -o-transition:all 500ms ease;
   background: #c0defc;
+  background: var(--theme-color);
 }
 
 .sticky-header{
@@ -131,8 +132,8 @@
 }
 .main-header .logo-box img{
   width: 200px;
-  height: 52px;
   height: auto;
+  padding: 0.5rem 0rem;
 }
 .main-header .menu-area {
   z-index: 1;
@@ -853,7 +854,7 @@
   -moz-transition: all 500ms ease;
   -ms-transition: all 500ms ease;
   -o-transition: all 500ms ease;
-  transition: all 500ms ease; 
+  transition: all 500ms ease;
 }
 .mobile-menu .social-links li a span{
   color:var(--white-color);
@@ -5522,7 +5523,7 @@ section.page__title:before {
 .right__site__info a {
   font-style: normal;
   font-weight: 600;
-  font-size: 35px;
+  font-size: 25px;
   line-height: 40px;
 }
 .contact__info__block:nth-child(1) a {

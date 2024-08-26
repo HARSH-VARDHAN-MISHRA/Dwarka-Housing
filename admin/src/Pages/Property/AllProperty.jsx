@@ -295,7 +295,7 @@ const AllProperty = () => {
                         <div>
                             
                             <h5>{selectedProperty.title}</h5>
-                            <p><strong>Location:</strong> {selectedProperty.location}</p>
+                            <p><strong>Location:</strong> {selectedProperty.state} , {selectedProperty.locality}</p>
                             <p><strong>Price:</strong> {selectedProperty.price}</p>
                             <p><strong>Type:</strong> {selectedProperty.type}</p>
                             <p><strong>Area:</strong> {selectedProperty.areaSize} sq.ft</p>

@@ -233,11 +233,6 @@ const AddProperty = () => {
                         </select>
                     </div>
 
-                    {/* <div className="col-md-4">
-                        <label htmlFor="mapLink" className="form-label">Map Link</label>
-                        <input type="text" onChange={handleInputChange} name="mapLink" value={formData.mapLink} className="form-control" id="mapLink" />
-                    </div> */}
-
                     <div className="col-md-4">
                         <label htmlFor="status" className="form-label">Status</label>
                         <select onChange={handleInputChange} name="status" value={formData.status} className="form-select" id="status" required>

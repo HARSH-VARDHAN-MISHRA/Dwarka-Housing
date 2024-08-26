@@ -5,6 +5,7 @@ import Testimonial from '../../components/Testimonial/Testimonial';
 import { useNavigate } from 'react-router-dom';
 import './Home.css'
 import HomePageProperty from './HomePageProperty';
+import MetaTag from '../../components/Meta/MetaTags';
 
 const Home = () => {
   const [propertyTypes, setPropertyTypes] = useState([]);
@@ -65,6 +66,13 @@ const Home = () => {
 
   return (
     <>
+
+      <MetaTag
+        title="Hans Builders - Trusted Real Estate Experts"
+        description="Founded in 2017, Hans Builders, led by Kailash Chand Khandelwal and Groovin Khandelwal, has been a leading name in the real estate industry, helping clients find their dream properties in Dwarka and beyond."
+        keyword="Hans Builders, Hans Property, real estate Hans Builders, property Hans Builders, Dwarka real estate, Hans Builders website, real estate experts Hans Builders, Hans Builders contact, Hans Builders property management"
+      />
+
       <section className="banner__one p_relative">
         {/* Banner and other content */}
         <div className="banner__one__content">
@@ -137,7 +145,7 @@ const Home = () => {
                               </select>
                             </div>
                           </div>
-{/* 
+                          {/* 
                           <div className="form-group">
                             <div className="top__title">
                               <div className="icon">
@@ -195,15 +203,15 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            </div>
-            {/* Banner right side */}
-            <div className="banner__one__right">
-              <div className="image__one">
-                <figure className="image-box wow slideInUp animated animated animated" data-wow-delay="00ms" data-wow-duration="1500ms" style={{ visibility: 'visible', animationDuration: '1500ms', animationDelay: '0ms', animationName: 'slideInUp' }}><img src="assets/images/banner/banner-01.jpg" alt /></figure>
-              </div>
-            </div>
-
           </div>
+          {/* Banner right side */}
+          <div className="banner__one__right">
+            <div className="image__one">
+              <figure className="image-box wow slideInUp animated animated animated" data-wow-delay="00ms" data-wow-duration="1500ms" style={{ visibility: 'visible', animationDuration: '1500ms', animationDelay: '0ms', animationName: 'slideInUp' }}><img src="assets/images/banner/banner-01.jpg" alt /></figure>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <section className="property-list see__pad ">
@@ -214,7 +222,7 @@ const Home = () => {
             </div>
             <h2>Our <span> Property </span> </h2>
           </div>
-          <HomePageProperty/>
+          <HomePageProperty />
         </div>
       </section>
 

@@ -308,39 +308,50 @@ exports.getPropertyByName = async (req, res) => {
 // Update a property
 exports.updateProperty = async (req, res) => {
     try {
-        const propertyId = req.params.id;
-        const updates = req.body;
+        const { propertyId } = req.params;
+        const { formData = {}, newImages = [] } = req.body;
 
-        // Check if there are no fields to update
-        if (Object.keys(updates).length === 0) {
-            return res.status(400).json({
-                success: false,
-                msg: "No fields to update."
-            });
+        // Validate formData and set default values
+        const existingImages = formData.existingImages || [];
+        
+        // Handle image uploads if there are any
+        let uploadedImages = [];
+        if (newImages.length > 0) {
+            uploadedImages = await Promise.all(
+                newImages.map(async (image) => {
+                    const uploadResponse = await cloudinary.uploader.upload(image, {
+                        folder: 'property_images',
+                    });
+                    return uploadResponse.secure_url; // URL of the uploaded image
+                })
+            );
         }
 
-        const options = { new: true }; // Return the modified document
-        const updatedProperty = await Property.findByIdAndUpdate(propertyId, updates, options);
+        // Merge existing and new images
+        const updatedImages = [...existingImages, ...uploadedImages];
+
+        // Update the property in the database
+        const updatedProperty = await Property.findByIdAndUpdate(
+            propertyId,
+            { ...formData, images: updatedImages },
+            { new: true }
+        );
+
         if (!updatedProperty) {
-            return res.status(404).json({
-                success: false,
-                msg: "Property not found."
-            });
+            return res.status(404).json({ error: 'Property not found' });
         }
 
         res.status(200).json({
-            success: true,
-            msg: "Property updated successfully.",
-            data: updatedProperty
+            message: 'Property updated successfully',
+            updatedProperty,
         });
     } catch (error) {
-        console.log("Error : ", error);
-        return res.status(500).json({
-            success: false,
-            message: "Internal Server Error"
-        });
+        console.error('Error updating property:', error);
+        res.status(500).json({ error: 'An error occurred while updating the property' });
     }
 };
+
+
 
 exports.deleteProperty = async (req, res) => {
     try {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import FormatedIndianPrice from '../../components/FormatedIndianPrice/FormatedIndianPrice';
+import MetaTag from '../../components/Meta/MetaTags';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -65,6 +66,13 @@ const Profile = () => {
   return (
 
     <>
+
+      <MetaTag
+        title="User Profile | Hans Property"
+        description="View and manage your profile on Hans Property. Access your personal information, property listings, and account details with ease."
+        keyword="user profile, Hans Property, manage profile, account details, real estate, property management"
+      />
+
       <section className="page__title p_relative my-5">
         <div className="bg-layer parallax-bg" data-parallax="{&quot;y&quot;: 20}" style={{ backgroundImage: 'url(assets/images/resource/page-title.png)' }}>
         </div>

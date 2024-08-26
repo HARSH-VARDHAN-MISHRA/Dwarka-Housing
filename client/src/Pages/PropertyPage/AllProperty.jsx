@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loader from '../../components/Loader/Loader';
 import FormatedIndianPrice from '../../components/FormatedIndianPrice/FormatedIndianPrice';
+import MetaTag from '../../components/Meta/MetaTags';
 
 const AllProperty = () => {
     const [properties, setProperties] = useState([]);
@@ -71,7 +72,7 @@ const AllProperty = () => {
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/approved-properties`);
             // console.log('API Response:', response.data);  // Debugging
             if (response.data.success) {
-                const filteredProperties = response.data.data.filter(property => 
+                const filteredProperties = response.data.data.filter(property =>
                     (selectedType ? property.type === selectedType : true) &&
                     (selectedCategory ? property.category === selectedCategory : true) &&
                     (selectedState ? property.state === selectedState : true) &&
@@ -111,8 +112,8 @@ const AllProperty = () => {
         fetchLocations();
 
         window.scrollTo({
-            top:0,
-            behavior:'smooth'
+            top: 0,
+            behavior: 'smooth'
         })
     }, []);
 
@@ -130,6 +131,12 @@ const AllProperty = () => {
 
     return (
         <>
+            <MetaTag
+                title="Browse All Properties | Hans Property"
+                description="Explore a wide range of properties listed on Hans Property. Find your ideal home or investment opportunity from our extensive collection of residential and commercial properties."
+                keyword="properties for sale, real estate listings, Hans Property, residential properties, commercial properties, property search"
+            />
+
             <section className="page__title p_relative">
                 <div className="bg-layer parallax-bg" data-parallax="{&quot;y&quot;: 20}" style={{ backgroundImage: 'url(assets/images/resource/page-title.png)' }}>
                 </div>

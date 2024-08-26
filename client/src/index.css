@@ -90,11 +90,18 @@
 
 
 
-.main-header.style-one .upper-head a , 
-.main-header.style-one .upper-head span{
+.main-header .upper-head a , 
+.main-header .upper-head span{
     color: white;
 }
+.main-header.style-three .main-menu .navigation > li > a {
+    color: white;
+    text-transform: capitalize;
+}
 
+.main-header.style-three .btn-1 {
+    background: var(--secondary-color);
+}
 .main-header .upper-head {
     border-bottom: 1px solid white;
     padding-bottom: 0.1rem;

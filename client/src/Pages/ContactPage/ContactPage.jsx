@@ -1,15 +1,63 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import MetaTag from '../../components/Meta/MetaTags';
 
 const ContactPage = () => {
-  useEffect(()=>{
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setMessage(null);
+    setError(null);
+
+    const formData = new FormData(event.target);
+    formData.append("access_key", "ff14c527-5f59-4cfa-8e2d-07ecd1f43852");
+
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: json
+      }).then((res) => res.json());
+
+      if (res.success) {
+        setMessage("Email sent successfully!");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      setError("Failed to submit the form. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
     window.scrollTo({
-        top:0,
-        behavior:'smooth'
+      top: 0,
+      behavior: 'smooth'
     })
-},[])
+  }, [])
   return (
     <>
+
+      <MetaTag
+        title="Contact Us - Hans Builders"
+        description="Get in touch with Hans Builders for your real estate needs. Located at RZF-904/14, Raj Nagar Part-II, Palam Colony, N.D-45. Call us at +91 9350619539 or email hansbuilderdwarka@gmail.com."
+        keyword="Hans Builders contact, real estate contact, Hans Builders address, contact Hans Builders, real estate inquiries, Hans Builders phone number, Hans Builders email"
+      />
+
+
       {/* ----- BreadCrumb ----    */}
       <section className="page__title p_relative">
         <div className="bg-layer parallax-bg" data-parallax="{&quot;y&quot;: 20}" style={{ backgroundImage: 'url(assets/images/resource/page-title.png)' }}>
@@ -32,7 +80,7 @@ const ContactPage = () => {
             <div className="col-lg-6 col-md-12 col-sm-12 info-column">
               <div className="contact-info mr_70">
                 <h3>Lets talk!</h3>
-                <p>Quisque vitae volutpat leo. Cras scelerisque dignissim diam, nec auctor nisl pretium eu. Sed vulputate leo ac porta eleifend. Pellentesque semper convallis lacus, </p>
+                <p>We'd love to hear from you! Whether you have a question, feedback, or just want to say hello, feel free to reach out. We're here to help and answer any questions you may have. Let's connect and discuss how we can assist you.</p>
                 <div className="contact__info__block">
                   <div className="left__site__info">
                     <div className="contact__icon one">
@@ -41,7 +89,7 @@ const ContactPage = () => {
                   </div>
                   <div className="right__site__info one">
                     <h5>Call us</h5>
-                    <a href="tel:+12345   6987   231 ">+12345   6987   231 </a>
+                    <a href="tel:+919350619539">+91 9350619539</a>
                   </div>
                 </div>
                 <div className="contact__info__block">
@@ -52,7 +100,7 @@ const ContactPage = () => {
                   </div>
                   <div className="right__site__info two">
                     <h5>E-mail Address</h5>
-                    <a href="mailto:info@yourmail.com">info@hansbuilders.com</a>
+                    <a href="mailto:hansbuilderdwarka@gmail.com">hansbuilderdwarka@gmail.com</a>
                   </div>
                 </div>
               </div>
@@ -61,9 +109,10 @@ const ContactPage = () => {
               <div className="form-inner">
                 <div className="contact___title">
                   <h3> Send us a message </h3>
-                  <p>Quisque vitae volutpat leo. Cras scelerisque dignissim diam, nec auctor nisl pretium eu. Sed vulputate leo ac porta eleifend. Pellentesque semper convallis lacus, </p>
+                  <p>If you have any questions, inquiries, or feedback, we’re here to help. Reach out to us by filling out the form below, and our team will get back to you as soon as possible. We value your input and look forward to assisting you.</p>
                 </div>
-                <form method="post" action="sendemail.php" id="contact-form">
+
+                <form onSubmit={onSubmit} id="contact-form">
                   <div className="row clearfix">
                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
                       <input type="text" name="username" placeholder="Your Name" required />
@@ -74,28 +123,24 @@ const ContactPage = () => {
                     <div className="col-lg-12 col-md-12 col-sm-12 form-group">
                       <textarea name="message" placeholder="Message" defaultValue={""} />
                     </div>
+                    <div className="col-12">
+                      {message && <div className="alert alert-success mt-3">{message}</div>}
+                      {error && <div className="alert alert-danger mt-3">{error}</div>}
+                    </div>
                     <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn mr-0">
                       <div className="more__buttons">
-                        <button className="common-btn btn__two" type="submit" name="submit-form">Send Your Message <i className="icon-icon-51" /></button>
+                        <button className="common-btn btn__two" type="submit" name="submit-form">{loading ? "Please wait..." : "Send Your Message"} <i className="icon-icon-51" /></button>
                       </div>
                     </div>
                   </div>
                 </form>
+
               </div>
             </div>
           </div>
         </div>
       </section>
       {/* contact end*/}
-
-      {/* Map Section */}
-      <section className="map-section">
-        <div className="location-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3498.6090151114627!2d77.08295547496047!3d28.73122847959285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d07440faeeedd%3A0x7fd3b4b030819bdf!2sDigi%20India%20Solutions!5e0!3m2!1sen!2sin!4v1723139239811!5m2!1sen!2sin" width="100%" height={708} frameBorder={0} style={{ border: 0, marginBottom: '-9px', width: '100%' }} allowFullScreen aria-hidden="false" tabIndex={0} />
-        </div>
-      </section>
-      {/* End Map Section */}
-
 
     </>
   )

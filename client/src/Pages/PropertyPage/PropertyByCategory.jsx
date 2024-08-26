@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loader from '../../components/Loader/Loader';
 import FormatedIndianPrice from '../../components/FormatedIndianPrice/FormatedIndianPrice';
+import MetaTag from '../../components/Meta/MetaTags';
 
 const PropertyByCategory = () => {
     const { categoryName } = useParams();
@@ -131,6 +132,14 @@ const PropertyByCategory = () => {
 
     return (
         <>
+            {categoryName && (
+                <MetaTag
+                    title={`Browse ${categoryName} Properties | Hans Property`}
+                    description={`Discover a range of ${categoryName} properties on Hans Property. Find your perfect home or investment opportunity among our carefully curated listings in this category.`}
+                    keyword={`${categoryName} properties, ${categoryName} real estate, Hans Property, property listings, buy ${categoryName}, ${categoryName} homes`}
+                />
+            )}
+
             <section className="page__title p_relative">
                 <div className="bg-layer parallax-bg" data-parallax="{&quot;y&quot;: 20}" style={{ backgroundImage: 'url(assets/images/resource/page-title.png)' }}>
                 </div>

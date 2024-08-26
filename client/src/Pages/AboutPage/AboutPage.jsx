@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import aboutImage from './about.jpg';
 import './AboutPage.css'; // Make sure to import the stylesheet
+import MetaTag from '../../components/Meta/MetaTags';
 
 const AboutPage = () => {
     useEffect(() => {
@@ -14,6 +15,15 @@ const AboutPage = () => {
 
     return (
         <>
+
+            <MetaTag
+                title="About Us - Hans Property"
+                description="Discover the story of Hans Property, founded in 2017 by Kailash Chand Khandelwal. Learn about our vision, mission, and the leadership of Groovin Khandelwal as we continue to excel in the real estate industry."
+                keyword="Hans Property, real estate history, Hans Property mission, Hans Property vision, Kailash Chand Khandelwal, Groovin Khandelwal, real estate leaders, company history Hans Property"
+            />
+
+
+
             {/* ----- BreadCrumb ---- */}
             <section className="page__title p_relative">
                 <div className="bg-layer parallax-bg" style={{ backgroundImage: 'url(assets/images/resource/page-title.png)' }}>
@@ -36,7 +46,7 @@ const AboutPage = () => {
                         <div className="col-md-12">
                             <h2 className="section-title">Welcome to <span className='text-uppercase'>Hans Property</span></h2>
                             <p className="intro-text">
-                                <strong>Founded in 2017 by Kailash Chand Khandelwal, Hans Property</strong> has been a trusted name in the real estate industry.
+                                <strong> Hans Property</strong> has been a trusted name in the real estate industry.
                                 With years of experience and a commitment to excellence, we have been helping our clients find their dream properties.
                                 <span className="highlight">Today, the legacy is carried forward by Groovin Khandelwal,</span> who continues to lead the company towards new heights.
                             </p>

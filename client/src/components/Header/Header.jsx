@@ -3,7 +3,7 @@ import logo from './logo.png';
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-
+import './Header.css'
 
 
 
@@ -83,7 +83,7 @@ const Header = () => {
                 <li><a href="#"><span className="fab fa-youtube" /></a></li>
               </ul>
             </div>
-            <div className="number"><a href="tel:+918130543714">+91-8130543714</a></div>
+            <div className="number"><a href="tel:+919350619539">+91-9350619539</a></div>
           </div>
           {/* header-lower */}
           <div className="header-lower">
@@ -199,9 +199,9 @@ const Header = () => {
 
               <h4>Contact Info</h4>
               <ul>
-                <li>Plot.198, Sec 24, Pocket-9, Rohini, New Delhi, Delhi 110085</li>
-                <li><a href="tel:+91987654321">+91-987654321</a></li>
-                <li><a href="mailto:info@example.com">info@example.com</a></li>
+                <li>RZF-904/14, Raj Nagar Part-II, Palam Colony, N.D-45 (Near Malaria Hospital Sec-8, Dwarka)</li>
+                <li><a href="tel:+919350619539">+91-9350619539</a></li>
+                <li><a href="mailto:hansbuilderdwarka@gmail.com">hansbuilderdwarka@gmail.com</a></li>
               </ul>
             </div>
             <div className="social-links">
@@ -219,7 +219,7 @@ const Header = () => {
 
       </div>
 
-      <a href="https://api.whatsapp.com/send?phone=918130543714" target="_blank" class="whatsapp_float">
+      <a href="https://api.whatsapp.com/send?phone=919350619539" target="_blank" class="whatsapp_float">
         <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
       </a>
     </>

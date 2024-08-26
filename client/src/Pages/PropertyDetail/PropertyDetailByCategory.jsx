@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import Loader from '../../components/Loader/Loader';
 import formatDate from '../../components/formatDate/formatDate';
 import FormatedIndianPrice from '../../components/FormatedIndianPrice/FormatedIndianPrice';
+import MetaTag from '../../components/Meta/MetaTags';
 
 const PropertyDetailByCategory = () => {
 
@@ -71,6 +72,12 @@ const PropertyDetailByCategory = () => {
 
             {property ? (
                 <>
+                    <MetaTag
+                        title={`${property.title} | ${property.type}`}
+                        description={`Discover the details of ${property.title}. This ${property.type} property is listed at ₹${property.price}. Located in ${property.locality}, ${property.state}, it offers a spacious area of ${property.areaSize} sq ft, built in ${property.yearBuilt}. Ideal for buyers looking for quality real estate.`}
+                        keyword={`${property.title}, ${property.type} property, ${property.locality} real estate, ${property.state} property, premium property, property for sale, ${property.description}`}
+                    />
+
 
                     <section className="property__details pt-20 pb-140">
                         <div className="container">
@@ -241,9 +248,9 @@ const PropertyDetailByCategory = () => {
                                                     </div>
                                                 </>
                                             ) : (
-                                                <p>No properties available.</p>  
-                                                
-  )}
+                                                <p>No properties available.</p>
+
+                                            )}
                                         </div>
 
 
