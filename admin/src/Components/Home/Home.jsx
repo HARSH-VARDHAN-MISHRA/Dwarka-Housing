@@ -29,7 +29,7 @@ const Home = () => {
               {/* Product --  */}
               <Route path="/all-properties" element={<AllProperty />} />
                 <Route path="/add-property" element={<AddProperty />} />
-                <Route path="/edit-property/:id" element={<EditProperty />} />
+                <Route path="/edit-property/:_id" element={<EditProperty />} />
 
               <Route path="/all-vendor-properties" element={<AllPropertyByVendor />} />
               {/* --- Orders --- */}
