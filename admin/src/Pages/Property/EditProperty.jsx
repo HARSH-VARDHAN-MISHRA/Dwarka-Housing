@@ -15,35 +15,53 @@ const EditProperty = () => {
         bedrooms: 0,
         bathrooms: 0,
         yearBuilt: 0,
-        location: '', // Location ID reference
+        location: '',  // ID reference for location
         mapLink: '',
-        vendor: '', // Vendor ID reference (set from sessionStorage)
+        vendor: '',  // ID reference for vendor (to be set from sessionStorage)
         status: 'Pending',
         state: '',
-        locality: '',
-        images: [] // Store image files directly
+        locality: ''
     });
-    const [existingImages, setExistingImages] = useState([]);
+
     const [locations, setLocations] = useState([]);
     const [propertyCategory, setPropertyCategory] = useState([]);
     const [propertyType, setPropertyType] = useState([]);
     const [currentState, setCurrentState] = useState('');
     const [currentLocality, setCurrentLocality] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchProperty = async () => {
+        const fetchPropertyDetails = async () => {
             try {
-                const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-property-by-id/${id}`);
-                setFormData(res.data.data);
-                setExistingImages(res.data.data.images || []);
-                setCurrentState(res.data.data.state);
-                setCurrentLocality(res.data.data.locality);
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-property-by-id/${id}`);
+                if (response.data.success) {
+                    const property = response.data.data;
+                    setFormData({
+                        title: property.title,
+                        description: property.description,
+                        type: property.type,
+                        category: property.category,
+                        price: property.price,
+                        areaSize: property.areaSize,
+                        bedrooms: property.bedrooms,
+                        bathrooms: property.bathrooms,
+                        yearBuilt: property.yearBuilt,
+                        location: property.location, // Assuming location ID is stored
+                        mapLink: property.mapLink,
+                        vendor: property.vendor,
+                        status: property.status,
+                        state: property.state,
+                        locality: property.locality
+                    });
+                    setCurrentState(property.state);
+                    setCurrentLocality(property.locality);
+                } else {
+                    toast.error('Failed to load property details');
+                }
             } catch (error) {
-                console.error('There was an error fetching the property!', error);
-                toast.error('An error occurred while fetching the property');
+                console.error('Error fetching property details:', error);
+                toast.error('An error occurred while fetching property details');
             }
         };
 
@@ -67,11 +85,11 @@ const EditProperty = () => {
                 if (response.data.success) {
                     setPropertyCategory(response.data.data);
                 } else {
-                    toast.error('Failed to load categories');
+                    toast.error('Failed to load property categories');
                 }
             } catch (error) {
-                console.error('Error fetching categories:', error);
-                toast.error('An error occurred while fetching categories');
+                console.error('Error fetching property categories:', error);
+                toast.error('An error occurred while fetching property categories');
             }
         };
 
@@ -81,26 +99,18 @@ const EditProperty = () => {
                 if (response.data.success) {
                     setPropertyType(response.data.data);
                 } else {
-                    toast.error('Failed to load types');
+                    toast.error('Failed to load property types');
                 }
             } catch (error) {
-                console.error('Error fetching types:', error);
-                toast.error('An error occurred while fetching types');
+                console.error('Error fetching property types:', error);
+                toast.error('An error occurred while fetching property types');
             }
         };
 
-        fetchProperty();
+        fetchPropertyDetails();
         fetchLocations();
         fetchPropertyCategories();
         fetchPropertyTypes();
-
-        // Set vendor ID from sessionStorage
-        const user = JSON.parse(sessionStorage.getItem('hansBuilderUser'));
-        if (user && user._id) {
-            setFormData(prevState => ({ ...prevState, vendor: user._id }));
-        } else {
-            toast.error('Vendor ID not found in session storage');
-        }
     }, [id]);
 
     const handleInputChange = (e) => {
@@ -112,7 +122,7 @@ const EditProperty = () => {
         setCurrentState(state);
         const locality = locations.find(loc => loc.state === state)?.locality || [];
         setCurrentLocality(locality[0] || '');
-        const locationId = locations.find(loc => loc.state === state)?._id || '';
+        const locationId = locations.find(loc => loc.state === state)?._id || '';  // Store the location ID
         setFormData(prevState => ({
             ...prevState,
             state,
@@ -121,33 +131,13 @@ const EditProperty = () => {
         }));
     };
 
-    const handleFileChange = (e) => {
-        const files = Array.from(e.target.files);
-        setFormData(prevState => ({ ...prevState, images: files }));
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
-        const data = new FormData();
-        for (const key in formData) {
-            if (Array.isArray(formData[key])) {
-                formData[key].forEach(file => {
-                    data.append('images', file);
-                });
-            } else {
-                data.append(key, formData[key]);
-            }
-        }
-
         try {
-            const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/update-property/${id}`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            toast.success('Property Updated Successfully');
+            const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/update-property/${id}`, formData);
+            toast.success('Property updated successfully');
             navigate('/all-properties');
         } catch (error) {
             console.error('There was an error!', error);
@@ -156,6 +146,10 @@ const EditProperty = () => {
             setIsLoading(false);
         }
     };
+
+    if(!locations){
+        return "Loading..";
+    }
 
     return (
         <>
@@ -193,8 +187,8 @@ const EditProperty = () => {
                     <div className="col-md-4">
                         <label htmlFor="category" className="form-label">Category</label>
                         <select onChange={handleInputChange} name="category" value={formData.category} className="form-select" id="category" required>
-                            {propertyCategory && propertyCategory.map((category) => (
-                                <option key={category} value={category}>{category}</option>
+                            {propertyCategory && propertyCategory.map((category, ind) => (
+                                <option key={ind} value={category}>{category}</option>
                             ))}
                         </select>
                     </div>
@@ -227,17 +221,19 @@ const EditProperty = () => {
                     <div className="col-md-4">
                         <label htmlFor="state" className="form-label">State</label>
                         <select onChange={(e) => handleStateChange(e.target.value)} name="state" value={currentState} className="form-select" id="state" required>
-                            {locations.map((location) => (
-                                <option key={location._id} value={location.state}>{location.state}</option>
+                            <option value="">Select State</option>
+                            {locations && [...new Set(locations.map(location => location.state))].map((state, ind) => (
+                                <option key={ind} value={state}>{state}</option>
                             ))}
                         </select>
                     </div>
 
                     <div className="col-md-4">
                         <label htmlFor="locality" className="form-label">Locality</label>
-                        <select onChange={handleInputChange} name="locality" value={currentLocality} className="form-select" id="locality" required>
-                            {locations.find(loc => loc.state === currentState)?.locality.map((loc, index) => (
-                                <option key={index} value={loc}>{loc}</option>
+                        <select onChange={handleInputChange} name="locality" value={formData.locality} className="form-select" id="locality" required>
+                            <option value="">Select Locality</option>
+                            {locations.find(loc => loc.state === currentState)?.locality.map(loc => (
+                                <option key={loc} value={loc}>{loc}</option>
                             ))}
                         </select>
                     </div>
@@ -251,12 +247,7 @@ const EditProperty = () => {
                         </select>
                     </div>
 
-                    <div className="col-md-4">
-                        <label htmlFor="images" className="form-label">Images</label>
-                        <input type="file" onChange={handleFileChange} name="images" multiple className="form-control" id="images" />
-                    </div>
-
-                    <div className="col-12">
+                    <div className="col-12 text-end">
                         <button type="submit" className="btn btn-primary" disabled={isLoading}>
                             {isLoading ? 'Updating...' : 'Update Property'}
                         </button>

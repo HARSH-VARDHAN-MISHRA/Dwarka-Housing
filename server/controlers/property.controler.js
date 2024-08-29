@@ -306,50 +306,90 @@ exports.getPropertyByName = async (req, res) => {
 
 
 // Update a property
+// exports.updateProperty = async (req, res) => {
+//     try {
+//         const { propertyId } = req.params;
+//         const updates = req.body;
+
+//          // Check if there are no fields to update
+//          if (Object.keys(updates).length === 0) {
+//             return res.status(400).json({
+//                 success: false,
+//                 msg: "No fields to update."
+//             });
+//         }
+
+//         const options = { new: true }; // Return the modified document
+//         const updatedProperty = await Property.findByIdAndUpdate(categoryId, updates, options);
+//         if (!updatedProperty) {
+//             return res.status(404).json({
+//                 success: false,
+//                 msg: "Property not found."
+//             });
+//         }
+
+//         res.status(200).json({
+//             success: true,
+//             message: 'Property updated successfully',
+//             data: updatedProperty,
+//         });
+//     } catch (error) {
+//         console.error('Error updating property:', error);
+//         res.status(500).json({ 
+//             success : false,
+//             message: 'An error occurred while updating the property' 
+//         });
+//     }
+// };
+
 exports.updateProperty = async (req, res) => {
     try {
-        const { propertyId } = req.params;
-        const { formData = {}, newImages = [] } = req.body;
+        const { id } = req.params;
+        console.log(id);
+        const updates = req.body;
+        // console.log(updates, "My updates");
 
-        // Validate formData and set default values
-        const existingImages = formData.existingImages || [];
-        
-        // Handle image uploads if there are any
-        let uploadedImages = [];
-        if (newImages.length > 0) {
-            uploadedImages = await Promise.all(
-                newImages.map(async (image) => {
-                    const uploadResponse = await cloudinary.uploader.upload(image, {
-                        folder: 'property_images',
-                    });
-                    return uploadResponse.secure_url; // URL of the uploaded image
-                })
-            );
+        // Check if there are no fields to update
+        if (Object.keys(updates).length === 0) {
+            return res.status(400).json({
+                success: false,
+                msg: "No fields to update."
+            });
         }
 
-        // Merge existing and new images
-        const updatedImages = [...existingImages, ...uploadedImages];
+        // Exclude images from updates if they are not being changed
+        if (!updates.images) {
+            delete updates.images;
+        }
 
-        // Update the property in the database
-        const updatedProperty = await Property.findByIdAndUpdate(
-            propertyId,
-            { ...formData, images: updatedImages },
-            { new: true }
-        );
+        const options = { new: true }; // Return the modified document
+        const updatedProperty = await Property.findByIdAndUpdate(id, updates, options);
 
+        // Check if the property was found
         if (!updatedProperty) {
-            return res.status(404).json({ error: 'Property not found' });
+            return res.status(404).json({
+                success: false,
+                msg: "Property not found."
+            });
         }
+
+        // Save the updated property (if there are changes that require re-saving)
+        await updatedProperty.save();
 
         res.status(200).json({
+            success: true,
             message: 'Property updated successfully',
-            updatedProperty,
+            data: updatedProperty,
         });
     } catch (error) {
         console.error('Error updating property:', error);
-        res.status(500).json({ error: 'An error occurred while updating the property' });
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while updating the property'
+        });
     }
 };
+
 
 
 
