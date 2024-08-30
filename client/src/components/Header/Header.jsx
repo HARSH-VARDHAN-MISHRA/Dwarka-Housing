@@ -121,7 +121,7 @@ const Header = () => {
                         <span />
                       </Link>
                     ) : (
-                      <Link to="/sign-up" className="btn-1">
+                      <Link to="/login" className="btn-1">
                         Add your Property
                         <span />
                       </Link>

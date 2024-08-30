@@ -185,13 +185,15 @@ const PropertyDetailByCategory = () => {
                                             <h4 className="title">Contact Owner</h4>
                                             <div className="author__info">
                                                 <figure className="author__thumb">
-                                                    <img src="https://avatars.githubusercontent.com/u/138967484?v=4" alt={property.vendor.name} />
+                                                    <img src="https://res.cloudinary.com/dtk5bwcgi/image/upload/v1724999528/logo_1_1_weqnny.png" alt={property.vendor.name} />
                                                 </figure>
                                                 <div className="re__post__content">
-                                                    <h5 className='mb-2'>{property.vendor.name}</h5>
+                                                    {/* <h5 className='mb-2'>{property.vendor.name}</h5> */}
+                                                    <h5 className=''>Hans Property</h5>
+                                                    <a href="tel:+919350619539">+91-9350619539</a>
                                                     <div className="team__media mb-15">
                                                         <ul>
-                                                            <li><a href="#"><span className="icon-icon-35" /></a></li>
+                                                            <li><a href="tel:+919350619539"><span className="icon-icon-35" /></a></li>
                                                             <li><a href="#"><span className="icon-icon-27" /></a></li>
                                                             <li><a href="#"><span className="icon-icon-14" /></a></li>
                                                         </ul>

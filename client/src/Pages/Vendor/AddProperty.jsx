@@ -33,12 +33,7 @@ const AddProperty = () => {
 
 
     const navigate = useNavigate();
-    useEffect(()=>{
-        window.scrollTo({
-            top:0,
-            behavior:'smooth'
-        })
-    })
+    
 
 
     const fetchPropertyCategories = async () => {
@@ -151,9 +146,13 @@ const AddProperty = () => {
             setIsloding(false);
         }
     };
-   
 
-
+    // useEffect(()=>{
+    //     window.scrollTo({
+    //         top:0,
+    //         behavior:'smooth'
+    //     })
+    // })
     
     return (
         <>

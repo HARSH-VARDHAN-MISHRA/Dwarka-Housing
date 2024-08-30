@@ -390,7 +390,7 @@ exports.ResendSignOtp = async (req, res) => {
                 .content p {
                   font-size: 16px;
                   color: #ffffff;
-                  background-color: #2dbcb6;
+                  background-color: #2CACE2;
                   padding: 10px;
                   border-radius: 5px;
                 }
@@ -499,7 +499,7 @@ exports.PasswordChangeRequest = async (req, res) => {
                 .content p {
                   font-size: 16px;
                   color: #ffffff;
-                  background-color: #2dbcb6;
+                  background-color: #2CACE2;
                   padding: 10px;
                   border-radius: 5px;
                 }
@@ -595,11 +595,11 @@ exports.ResendOtp = async (req, res) => {
                   max-width: 600px;
                 }
                 .header {
-                  background-color: #ff0000; /* Red background */
+                  background-color: #003873;
                   padding: 10px;
                   border-radius: 10px 10px 0 0;
                   text-align: center;
-                  color: #ffffff; /* White text */
+                  color: #ffffff;
                 }
                 .content {
                   padding: 20px;
@@ -607,8 +607,10 @@ exports.ResendOtp = async (req, res) => {
                 }
                 .content p {
                   font-size: 16px;
-                  color: #333333; /* Default text color */
-                  margin: 10px 0;
+                  color: #ffffff;
+                  background-color: #2CACE2;
+                  padding: 10px;
+                  border-radius: 5px;
                 }
                 .otp {
                   font-size: 20px;
